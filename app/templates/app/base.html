@@ -47,21 +47,21 @@
          </form>
          <div>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          
+          {% if  request.user.is_authenticated %}
            <li class="nav-item dropdown mx-2">
               <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Profile
+                {{request.user.username|capfirst}}
               </a>
               <ul class="dropdown-menu" aria-labelledby="profileDropdown">
                 <li><a class="dropdown-item" href="">Profile</a></li>
                 <li><a class="dropdown-item" href="">Edit Information</a></li>
                 <li><a class="dropdown-item" href="">Change Password</a></li>
-                <li><a class="dropdown-item" href="">Logout</a></li>
+               
               </ul>
             </li>
             
             
-            <li class="nav-item dropdown mx-2">
+            <!-- <li class="nav-item dropdown mx-2">
               <a class="nav-link dropdown-toggle text-white" href="#" id="registerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Registration
               </a>
@@ -70,11 +70,22 @@
                 <li><a class="dropdown-item" href="">As a Investor</a></li>
                 <li><a class="dropdown-item" href="">As a Customer</a></li>
                 
-              </ul>
+              </ul> -->
+               <li class="nav-item mx-2">
+             <a href="{% url 'logout' %}" class="nav-link text-white">Logout</a>
+            </li>
+              {% else %}
               <li class="nav-item mx-2">
-             <a href="" class="nav-link text-white">Login</a>
+             <a href="{% url 'register' %}" class="nav-link text-white">Registration</a>
             </li>
+              <li class="nav-item mx-2">
+             <a href="{% url 'login' %}" class="nav-link text-white">Login</a>
             </li>
+            {% endif %}
+            
+             
+            
+            
             
             
           </ul>

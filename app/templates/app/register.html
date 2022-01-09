@@ -1,0 +1,39 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Registration{% endblock title %}
+{% block main-content %}
+
+<div class="container">
+<h1 class="text-center my-5">Register</h1>
+<div class="d-inline-flex p-5 ">
+  <div class="card shadow p-3" style="width:400px">
+    <div class="card-body">
+      <br><br>
+      <h4 class="card-title">As a StartUp</h4>
+      <h5 class="card-text text-muted">To join as a startup in this community you can find invetor and customer easily for grow your business.<h5/>
+      <br><br>
+      <a href="{% url 'startup_register' %}" class="btn btn-outline-primary">I'm Startup</a>
+    </div>
+  </div>
+  <div class="card mx-5 shadow p-3" style="width:400px">
+    <div class="card-body">
+      <br><br>
+      <h4 class="card-title">As a Investor</h4>
+      <h5 class="card-text text-muted">To join as a investor in this community you can find many good ideas company for invest you money and get profit easily.<h5/>
+      <br><br>
+      <a href="{% url 'investor_register' %}" class="btn btn-outline-primary">I'm Investor</a>
+    </div>
+  </div>
+  <div class="card mx-5 shadow p-3" style="width:400px">
+    <div class="card-body">
+      <br><br>
+      <h4 class="card-title">As a Customer</h4>
+      <h5 class="card-text text-muted">To join as a customer in this community you can get ideas and services from the companies.Also can contact them easily.<h5/>
+      <br><br>
+      <a href="{% url 'customer_register' %}" class="btn btn-outline-primary">I'm Customer</a>
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock main-content %}
