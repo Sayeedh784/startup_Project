@@ -40,6 +40,9 @@
             <li class="nav-item mx-2">
              <a href="" class="nav-link text-white">Investors</a>
             </li>
+            <li class="nav-item mx-2">
+             <a href="" class="nav-link text-white">Article</a>
+            </li>
          </ul>
          <form class="d-flex">
            <input class="form-control me-2" type="search" placeholder="Search Here" aria-label="Search">
@@ -54,8 +57,8 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="profileDropdown">
                 <li><a class="dropdown-item" href="">Profile</a></li>
-                <li><a class="dropdown-item" href="">Edit Information</a></li>
-                <li><a class="dropdown-item" href="">Change Password</a></li>
+                <li><a class="dropdown-item" href="{% url 'user-form' %}">Update Profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'passwordchange' %}">Change Password</a></li>
                
               </ul>
             </li>

@@ -33,14 +33,49 @@
   <div class="bg-danger text-center p-5 text-white">
     <h1>Join now for Grow your Business</h1>
     
-      <a class="btn btn-primary" href="#" role="button">SignUp Now</a>
+      <a class="btn btn-primary" href="{% url 'register' %}" role="button">SignUp Now</a>
     
   </div>
 </div>
-<br /><br />
+<br /><br /><br>
 {% endblock livesale %} 
-
+  
 {% block main-content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card shadow p-3 ">
+      <div class="card-body text-center">
+        <h4>{{total_startup}}</h4>
+       <h4>Startups</h4>
+      
+      </div>
+   </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow p-3 ">
+      <div class="card-body text-center">
+        <h4>{{total_investor}}</h4>
+      <h4>Investors</h4>
+      
+      </div>
+   </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow p-3 ">
+      <div class="card-body text-center">
+        <h4>{{total_customer}}</h4>
+      <h4>Customers</h4>
+      
+      </div>
+   </div>
+    </div>
+    
+    
+  </div>
+</div>
+<br><br><br>
 <div class="container">
   <h1>what the Network offer</h1>
   <br />
@@ -95,6 +130,6 @@
     <a href="" role="button" style="border-radius: 15px;" class="btn btn-outline-danger mx-1">Big Data</a>
     <a href="" role="button" style="border-radius: 15px;" class="btn btn-outline-danger mx-1">Machine Learning</a>
   </div>
-</div>
+    
 
 {% endblock main-content %}

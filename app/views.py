@@ -12,7 +12,15 @@ from app.models import *
 
 
 def home(request):
-  return render(request,'app/home.html')
+  startup = StartupInfo.objects.all()
+  total_startup = startup.count()
+  investor = Investorinfo.objects.all()
+  total_investor = investor.count()
+  customer = CustomerInfo.objects.all()
+  total_customer = customer.count()
+  context = {'total_startup': total_startup,
+             'total_investor': total_investor, 'total_customer': total_customer, }
+  return render(request,'app/home.html',context)
 
 
 def register(request):
@@ -106,3 +114,31 @@ def logout_view(request):
     logout(request)
     return redirect('/login')
 
+def userProfileForm(request):
+  if request.method == "POST":
+    if request.user.is_startup:
+      form = Startup_profileForm(request.POST)
+    elif request.user.is_investor:
+      form = Investor_profileForm(request.POST)
+    else:
+      form = Customer_profileForm(request.POST)
+    if form.is_valid():
+      form.save()
+      if request.user.is_startup:
+        form = Startup_profileForm()
+      elif request.user.is_investor:
+        form = Investor_profileForm()
+      else:
+        form = Customer_profileForm()
+      messages.success(request,"Profile Updated successfully!!!")
+  else:
+    if request.user.is_startup:
+      form = Startup_profileForm()
+    elif request.user.is_investor:
+      form = Investor_profileForm()
+    else:
+      form = Customer_profileForm()
+  context={'form':form}
+  
+  return render(request,'app/user_profileForm.html',context)
+  

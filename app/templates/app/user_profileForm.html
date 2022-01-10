@@ -1,6 +1,6 @@
 {% extends 'app/base.html' %}
 {% load static %}
-{% block title %}Login{% endblock title %}
+{% block title %}Customer Registration{% endblock title %}
 {% load widget_tweaks %}
 {% block main-content %}
 
@@ -9,13 +9,13 @@
 <section>
   <div class="container my-5">
     <div class="row">
-      <div class="col-md-6 mx-auto">
+      <div class="col-md-12 mx-auto">
         <div class="card shadow p-5">
           <div class="card-header text-black">
-            <h2>Log in</h2>
+            <h2>Profile of {{request.user.username|capfirst}}</h2>
           </div>
           <div class="card-body">
-            <form action="{% url 'login' %}" method="POST" novalidate>
+            <form action="" method="POST" novalidate>
               {% if messages %}
               {% for message in messages %}
               <p {% if message.tags %} class="alert alert-{{message.tags}}
@@ -32,13 +32,8 @@
                 {% endfor %}
                 {% endfor %}
                 <br>
-
-               <small><a href="{% url 'password_reset' %}" style="text-decoration:none">Forget Password?</a></small><br>
-                <input type="submit" class="btn btn-primary mt-4" value="Login">
+                <input type="submit" value="Update" class="btn btn-primary">
                 <br>
-                <div class="text-center text-primary fw-bold"><small>New
-                    to StartupBD? <a href="{% url 'register' %}" class="text-danger" style="text-decoration:none">Creat an Account</a></small>
-                </div>
               </div>
             </form>
           </div>

@@ -1,17 +1,19 @@
+from django.utils.translation import gettext, gettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.db import transaction
 from .models import *
+from django.forms import fields, widgets
+from django.contrib.auth import password_validation
+from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm, SetPasswordForm, UserCreationForm, AuthenticationForm, UsernameField
+PasswordChangeForm, PasswordResetForm, SetPasswordForm
+
 
 class StartupsignUpForm(UserCreationForm):
-    company_name = forms.CharField(max_length=50,required=True)
     email = forms.EmailField(max_length=100)
-
-
-
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ['username', 'email','company_name', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2']
         labels = {'email': 'Email'}
         widgets = {'username': forms.TextInput(
             attrs={'class': "form-control"})}
@@ -30,12 +32,11 @@ class StartupsignUpForm(UserCreationForm):
 
 
 class InvestorsignUpForm(UserCreationForm):
-    company_name = forms.CharField(max_length=50,required=True)
     email = forms.EmailField(max_length=100, required=True)
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ['username', 'email','company_name', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2']
         labels = {'email': 'Email'}
         widgets = {'username': forms.TextInput(
             attrs={'class': "form-control"})}
@@ -75,3 +76,44 @@ class CustomersignUpForm(UserCreationForm):
         return user
     
 
+class MyPasswordChangeForm(PasswordChangeForm):
+  old_password = forms.CharField(label=_("Old Password"),
+  strip=False,widget=forms.PasswordInput(attrs={'autocomplete':'current-password','autofocus':True,
+  'class':'form-control'}))
+  new_password1 = forms.CharField(label=_("New Password"),
+  strip=False,widget=forms.PasswordInput(attrs={'autocomplete':'New password',
+  'class':'form-control'}),help_text=password_validation.password_validators_help_text_html())
+  new_password2 = forms.CharField(label=_("Confrim New Password"),
+  strip=False,widget=forms.PasswordInput(attrs={'autocomplete':'current-password',
+  'class':'form-control'}))
+
+class MyPasswordResetForm(PasswordResetForm):
+  email  = forms.EmailField(label=_("Email"),max_length=254,
+  widget=forms.EmailInput(attrs={'autocomplete':'email',
+  'class':'form-control'}))
+
+class MySetPasswordForm(SetPasswordForm):
+  new_password1= forms.CharField(label=_("New Password"),
+  strip=False,widget=forms.PasswordInput(attrs={'autocomplete':'new-password',
+  'class':'form-control'}),help_text=password_validation.
+  password_validators_help_text_html())
+  new_password2= forms.CharField(label=_("Comfrim New Password"),
+  strip=False,widget=forms.PasswordInput(attrs={'autocomplete':'new-password',
+  'class':'form-control'}))
+
+
+class Startup_profileForm(forms.ModelForm):
+    class Meta:
+        model = StartupInfo
+        fields = ['name', 'company_name','mobile','logo','establish_year','business_model','employee_range',
+        'market_presence','looking_at','sector','description','videofile','weblink','location','team_member1','team_member2']
+
+class Investor_profileForm(forms.ModelForm):
+    class Meta:
+        model = Investorinfo
+        fields = ['name', 'company_name', 'mobile', 'logo', 'establish_year', 'investor_type', 'employee_range',
+        'market_presence', 'looking_at', 'tags', 'description', 'videos', 'weblink', 'location', 'team_member1', 'team_member2']
+class Customer_profileForm(forms.ModelForm):
+    class Meta:
+        model = CustomerInfo
+        fields = ['name','mobile']

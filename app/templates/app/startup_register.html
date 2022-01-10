@@ -1,6 +1,6 @@
 {% extends 'app/base.html' %}
 {% load static %}
-{% block title %}Customer Registration{% endblock title %}
+{% block title %}Startup Registration{% endblock title %}
 {% load widget_tweaks %}
 {% block main-content %}
 
@@ -10,7 +10,7 @@
   <div class="container my-5">
     <div class="row">
       <div class="col-md-6 mx-auto">
-        <div class="card">
+        <div class="card shadow p-5">
           <div class="card-header text-black">
             <h2>Registration for Startup Comapany</h2>
           </div>
@@ -36,7 +36,7 @@
                 <br>
 
                 <div class="text-center text-primary fw-bold">
-                  <small>Existing User? <a href="{% url 'login' %}" class="text-danger">Login Now</a></small>
+                  <small>Existing User? <a href="{% url 'login' %}" class="text-danger" style="text-decoration:none">Login Now</a></small>
                 </div>
               </div>
             </form>
