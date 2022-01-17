@@ -12,10 +12,12 @@ urlpatterns = [
     path('customer_register/',views.customer_register.as_view(), name='customer_register'),
     path('startup_register/',views.startup_register.as_view(), name='startup_register'),
     path('investor_register/',views.investor_register.as_view(), name='investor_register'),
-#     path('startup_profileForm/', views.startupForm,name='startup-form'),
-#     path('investor_profileForm/', views.investorForm,name='investor-form'),
-    path('user_profileForm/', views.userProfileForm,name='user-form'),
-
+    path('user_profileForm/<str:pk>/', views.userProfileForm, name='user-form'),
+    path('profile/<str:pk>/', views.profile, name='profile'),
+    path('startup_home/',views.startup_home,name='startup_home'),
+    path('investor_home/',views.investor_home,name='investor_home'),
+    path('article/',views.article,name='article'),
+    path('customer/',views.customer,name='customer'),
 
 
     path('login/',views.login_request, name='login'),

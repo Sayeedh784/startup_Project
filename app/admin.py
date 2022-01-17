@@ -5,10 +5,10 @@ from .models import *
 admin.site.register(User)
 @admin.register(StartupInfo)
 class StartupModelAdmin(admin.ModelAdmin):
-  list_display = ['id','user','company_name','email']
+  list_display = ['id','user','name','company_name','email']
 @admin.register(Investorinfo)
 class InvestorAdminModel(admin.ModelAdmin):
-  list_display = ['id','user','company_name','email']
+  list_display = ['id', 'user', 'name', 'company_name', 'email']
 @admin.register(CustomerInfo)
 class CustomerAdminModel(admin.ModelAdmin):
-  list_display = ['id','user','email']
+  list_display = ['id','user','name','email']

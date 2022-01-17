@@ -105,13 +105,13 @@ class MySetPasswordForm(SetPasswordForm):
 class Startup_profileForm(forms.ModelForm):
     class Meta:
         model = StartupInfo
-        fields = ['name', 'company_name','mobile','logo','establish_year','business_model','employee_range',
+        fields = ['name', 'company_name','title','email','mobile','logo','establish_year','business_model','employee_range',
         'market_presence','looking_at','sector','description','videofile','weblink','location','team_member1','team_member2']
 
 class Investor_profileForm(forms.ModelForm):
     class Meta:
         model = Investorinfo
-        fields = ['name', 'company_name', 'mobile', 'logo', 'establish_year', 'investor_type', 'employee_range',
+        fields = ['name', 'company_name', 'email', 'mobile', 'logo', 'establish_year', 'investor_type', 'employee_range',
         'market_presence', 'looking_at', 'tags', 'description', 'videos', 'weblink', 'location', 'team_member1', 'team_member2']
 class Customer_profileForm(forms.ModelForm):
     class Meta:

@@ -17,6 +17,8 @@
 
     <!--Custom CSS-->
     <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     
 
 
@@ -35,18 +37,21 @@
              <a class="nav-link active" aria-current="page" href="/">Home</a>
            </li>
            <li class="nav-item mx-2">
-             <a href="" class="nav-link text-white">Startups</a>
+             <a href="{% url 'startup_home' %}" class="nav-link text-white">Startups</a>
             </li>
             <li class="nav-item mx-2">
-             <a href="" class="nav-link text-white">Investors</a>
+             <a href="{% url 'investor_home' %}" class="nav-link text-white">Investors</a>
             </li>
             <li class="nav-item mx-2">
-             <a href="" class="nav-link text-white">Article</a>
+             <a href="{% url 'customer' %}" class="nav-link text-white">People</a>
+            </li>
+            <li class="nav-item mx-2">
+             <a href="{% url 'article' %}" class="nav-link text-white">Article</a>
             </li>
          </ul>
          <form class="d-flex">
-           <input class="form-control me-2" type="search" placeholder="Search Here" aria-label="Search">
-           <button class="btn btn-warning" type="submit">GO</button>
+           <input class="form-control me-2 " type="search" placeholder="Search Here" aria-label="Search">
+           <button class="btn btn-warning" type="submit"><i class="fas fa-search"></i></button>
          </form>
          <div>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -56,8 +61,8 @@
                 {{request.user.username|capfirst}}
               </a>
               <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" href="">Profile</a></li>
-                <li><a class="dropdown-item" href="{% url 'user-form' %}">Update Profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'profile' user.id %}"> Profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'user-form' user.id %}">Update Profile</a></li>
                 <li><a class="dropdown-item" href="{% url 'passwordchange' %}">Change Password</a></li>
                
               </ul>

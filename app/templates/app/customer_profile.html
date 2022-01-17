@@ -1,0 +1,10 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Customer Profile{% endblock title %}
+
+{% block main-content %}
+<h1>this is customer profile</h1>
+
+<h3>{{customer.name}}</h3>
+<h3>{{customer.email}}</h3>
+{% endblock main-content %}

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'app',
     'widget_tweaks',
     'crispy_forms',
+    'multiselectfield',
 ]
 
 AUTH_USER_MODEL = 'app.User'

@@ -1,0 +1,11 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Investor Profile{% endblock title %}
+
+{% block main-content %}
+<h1>this is investor profile</h1>
+<h2>{{investor.name}}</h2>
+<h2>{{investor.email}}</h2>
+<h2>{{investor.company_name}}</h2>
+{% endblock main-content %}
+

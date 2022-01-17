@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.db.models.query import EmptyQuerySet
+from django.http import request
+from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import login, logout,authenticate
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.views import View
-from django.views.generic import CreateView
+from django.views.generic import CreateView,ListView
 from .form import *
 from django.contrib.auth.forms import AuthenticationForm
 from .models import User
@@ -62,36 +64,6 @@ class investor_register(View):
     # return render(request, 'app/investor_register.html', {'form': form})
     return redirect('/login')
 
-# class customer_register(CreateView):
-#     model = User
-    
-#     form_class = CustomersignUpForm
-#     template_name = 'app/customer_register.html'
-
-#     def form_valid(self, form):
-#         user = form.save()
-#         login(self.request, user)
-#         return redirect('/')
-
-# class investor_register(CreateView):
-#     model = User
-#     form_class = InvestorsignUpForm
-#     template_name = 'app/employee_register.html'
-
-#     def form_valid(self, form):
-#         user = form.save()
-#         login(self.request, user)
-#         return redirect('/')
-# class startup_register(CreateView):
-#     model = User
-#     form_class = StartupsignUpForm
-#     template_name = 'app/employee_register.html'
-
-#     def form_valid(self, form):
-#         user = form.save()
-#         login(self.request, user)
-#         return redirect('/login')
-
 
 def login_request(request):
     if request.method=='POST':
@@ -114,14 +86,18 @@ def logout_view(request):
     logout(request)
     return redirect('/login')
 
-def userProfileForm(request):
+def userProfileForm(request,pk):
   if request.method == "POST":
     if request.user.is_startup:
-      form = Startup_profileForm(request.POST)
+      obj = get_object_or_404(StartupInfo, user_id=request.user.id)
+      form = Startup_profileForm(request.POST,instance=obj)
     elif request.user.is_investor:
-      form = Investor_profileForm(request.POST)
-    else:
-      form = Customer_profileForm(request.POST)
+      obj = get_object_or_404(Investorinfo, user_id=request.user.id)
+      print()
+      form = Investor_profileForm(request.POST, instance=obj)
+    elif request.user.is_customer:
+      obj = get_object_or_404(CustomerInfo, user_id=request.user.id)
+      form = Customer_profileForm(request.POST, instance=obj)
     if form.is_valid():
       form.save()
       if request.user.is_startup:
@@ -136,9 +112,33 @@ def userProfileForm(request):
       form = Startup_profileForm()
     elif request.user.is_investor:
       form = Investor_profileForm()
-    else:
+    elif request.user.is_customer:
       form = Customer_profileForm()
   context={'form':form}
   
   return render(request,'app/user_profileForm.html',context)
   
+def profile(request,pk):
+  
+  if request.user.is_startup:
+    startup = StartupInfo.objects.get(user_id=request.user.id)
+    return render(request, 'app/startup_profile.html', {'startup': startup})
+  elif request.user.is_investor:
+    investor = Investorinfo.objects.get(user_id=request.user.id)
+    return render(request, 'app/investor_profile.html', {'investor': investor})
+  elif request.user.is_customer:
+    customer = CustomerInfo.objects.get(user_id=request.user.id)
+    return render(request, 'app/customer_profile.html', {'customer': customer})
+
+
+def startup_home(request):
+  return render(request, 'app/startup_home.html')
+
+def investor_home(request):
+  return render(request, 'app/investor_home.html')
+
+def customer(request):
+  return render(request, 'app/customer_home.html')
+
+def article(request):
+  return render(request, 'app/article.html')

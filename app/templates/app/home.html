@@ -81,28 +81,28 @@
   <br />
 
   <div class="d-inline-flex p-5 ">
-  <div class="card" style="width:400px">
+  <div class="card shadow p-3" style="width:400px">
     <img class="card-img-top" src="{% static 'app/images/banner1/pic1.jpg' %}" alt="Card image" style="width:100%">
     <div class="card-body">
       <br><br>
       <h4 class="card-title">Discover</h4>
       <h5 class="card-text text-muted">Search for companies or people through the Network, and connect with them for opportunities. Once connected, you will be able to see their latest activity or message them directly.<h5/>
       <br><br>
-      <a href="#" class="btn btn-outline-danger">See Profile</a>
+      <a href="{% url 'investor_home' %}" class="btn btn-outline-danger">See Profile</a>
     </div>
   </div>
-  <div class="card mx-5" style="width:400px">
+  <div class="card mx-5 shadow p-3" style="width:400px">
     <img class="card-img-top" src="{% static 'app/images/banner1/pic2.PNG' %}" alt="Card image" style="width:100%">
     <div class="card-body">
       <br><br>
       <h4 class="card-title">Get Recommanded</h4>
       <h5 class="card-text text-muted">Expand your network through our recommendations. Through machine learning, our recommendation engine considers your preferences and associations to suggest potential business partners.</h5>
-      <br>
+      <br><br>
       <a href="#" class="btn btn-outline-danger">See Recommendation</a>
     </div>
   </div>
   
-  <div class="card" style="width:400px">
+  <div class="card shadow p-3" style="width:400px">
     <img class="card-img-top" src="{% static 'app/images/banner1/pic3.PNG' %}" alt="Card image" style="width:100%">
     <div class="card-body">
       <h4 class="card-title">Pitch</h4>
@@ -113,7 +113,7 @@
   </div>
   </div>
 </div>
-
+<br><br>
 <div class="container-fluid">
   <img style="width: 100%;" src="{% static 'app/images/banner1/banner1.PNG' %}" alt=""> 
 
