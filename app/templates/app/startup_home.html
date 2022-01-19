@@ -3,5 +3,33 @@
 {% block title %}Startup{% endblock title %}
 
 {% block main-content %}
-<h1>this is startup Home page</h1>
+
+{% for startup in startups %}
+<a href="{% url 'startup-profile' startup.id %}" style="text-decoration: none;">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card flex-row  mt-5 shadow p-3">
+        <div class="card-body row px-2 align-items-center">
+          <div class="col-md-2">
+            <img src="{{ startup.logo.url }}" width="120px" height="150px" alt="No images">
+          </div>
+          <div class="col-md-5">
+            <h4 class="card-title">
+              <h1><b>{{startup.company_name}}</b></h1>
+            </h4>
+            <p class="card-text">
+            <h3 class="text-muted">{{startup.title}}</h3>
+            </p>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+</a>
+{% endfor %}
 {% endblock main-content %}

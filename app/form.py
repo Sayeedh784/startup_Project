@@ -106,14 +106,16 @@ class Startup_profileForm(forms.ModelForm):
     class Meta:
         model = StartupInfo
         fields = ['name', 'company_name','title','email','mobile','logo','establish_year','business_model','employee_range',
-        'market_presence','looking_at','sector','description','videofile','weblink','location','team_member1','team_member2']
+        'market_presence','looking_at','sector','description','videofile','weblink','location',
+        'select_role1', 'selected_role_name1', 'selected_role_image1', 'select_role2', 'selected_role_name2', 'selected_role_image2']
 
 class Investor_profileForm(forms.ModelForm):
     class Meta:
         model = Investorinfo
-        fields = ['name', 'company_name', 'email', 'mobile', 'logo', 'establish_year', 'investor_type', 'employee_range',
-        'market_presence', 'looking_at', 'tags', 'description', 'videos', 'weblink', 'location', 'team_member1', 'team_member2']
+        fields = ['name', 'company_name','title', 'email', 'mobile', 'logo', 'establish_year', 'investor_type', 'employee_range',
+        'market_presence', 'looking_at', 'tags', 'description', 'videos', 'weblink', 'location',
+        'select_role1', 'selected_role_name1', 'selected_role_image1', 'select_role2', 'selected_role_name2', 'selected_role_image2']
 class Customer_profileForm(forms.ModelForm):
     class Meta:
         model = CustomerInfo
-        fields = ['name','mobile']
+        fields = ['name','mobile','looking_at','sector']

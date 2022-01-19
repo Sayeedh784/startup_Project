@@ -1,7 +1,35 @@
 {% extends 'app/base.html' %}
 {% load static %}
-{% block title %}Investor{% endblock title %}
+{% block title %}investor{% endblock title %}
 
 {% block main-content %}
-<h1>this is Investor Home page</h1>
+
+{% for investor in investors %}
+<a href="{% url 'investor-profile' investor.id %}" style="text-decoration: none;">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card flex-row  mt-5 shadow p-3">
+        <div class="card-body row px-2 align-items-center">
+          <div class="col-md-2">
+            <img src="{{ investor.logo.url }}" width="120px" height="150px" alt="No images">
+          </div>
+          <div class="col-md-5">
+            <h4 class="card-title">
+              <h1><b>{{investor.company_name}}</b></h1>
+            </h4>
+            <p class="card-text">
+            <h3 class="text-muted">{{investor.title}}</h3>
+            </p>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+</a>
+{% endfor %}
 {% endblock main-content %}

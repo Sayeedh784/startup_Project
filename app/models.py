@@ -1,4 +1,5 @@
 from contextlib import nullcontext
+from statistics import mode
 from turtle import title
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -20,8 +21,52 @@ CITY_CHOICES = (
   ('Rangpur','Rangpur'),
   ('Mymensing','Mymensing'),
 )
-
-
+SECTOR = (
+    ('AI', 'AI'),
+    ('Robotics', 'Robotics'),
+    ('Data Analysis', 'Data Analysis'),
+    ('Biotech', 'Biotech'),
+    ('Agritech', 'Agritech'),
+    ('Bigdata', 'Bigdata'),
+    ('Blockchain', 'Blockchain'),
+    ('cybersecurity', 'cybersecurity'),
+    ('Digital Health', 'Digital Health'),
+    ('Education', 'Education'),
+    ('E-commerce', 'E-commerce'),
+    ('Entertainments', 'Entertainments'),
+    ('Events', 'Events'),
+    ('Food&Beverage', 'Food&Beverage'),
+    ('Fintech', 'Fintech'),
+    ('Food Science & Technology', 'Food Science & Technology'),
+    ('Gaming', 'Gaming'),
+    ('Hardware', 'Hardware'),
+    ('Healthcare', 'Healthcare'),
+    ('Infotech', 'Inftech'),
+    ('IOT', 'IOT'),
+    ('Manufacturing & Engineering', 'Manufacturing & Engineering'),
+    ('Media', 'Media'),
+    ('Nanotechnology', 'Nanotechnology'),
+    ('Pharmaceutical', 'Pharmaceutical'),
+    ('Real Estate', 'Real Estate'),
+    ('Telecom', 'Telecom'),
+    ('Trasport', 'Transport'),
+    ('Travel & Hospitality', 'Travel & Hospitality'),
+    ('Others', 'Others'),
+)
+INVSETOR_TYPE = (
+  ('Angel Investor','Angel Investor'),
+  ('Peer to peer Lenders','peer to peer Lenders'),
+  ('Personal Investors','Personal Investors'),
+  ('Bank','Bank'),
+  ('Venture Capitalists', 'Venture Capitalists')
+)
+ROLE = (
+    ('CEO', 'CEO'),
+    ('Founder', 'Founder'),
+    ('CEO & Founder', 'CEO & Founder'),
+    ('Co-Founder', 'Co-Founder'),
+    ('Manager', 'Manager'),
+)
 LOOK_CHOICES = (
     ('Finding Investees', 'Finding Investees'),
     ('Partnerships with Corporates', 'Partnerships with Corporates'),
@@ -35,22 +80,30 @@ class Investorinfo(models.Model):
   user = models.ForeignKey(User, on_delete = models.CASCADE)
   name = models.CharField(max_length=100, null=True, blank=True)
   company_name = models.CharField(max_length=100, null=True, blank=True)
+  title = models.CharField(max_length=100,blank=True,null = True)
   email = models.EmailField(max_length=100, null=True, blank=True)
   mobile = models.CharField(max_length=50, null=True, blank=True)
   logo = models.ImageField(upload_to='images/', null=True, blank=True)
   establish_year = models.IntegerField(blank=True, null=True)
-  investor_type = models.CharField(max_length=10, blank=True, null=True)
+  investor_type = models.CharField(max_length=50,choices=INVSETOR_TYPE, blank=True, null=True)
   employee_range = models.CharField(max_length=10, blank=True, null=True)
   market_presence = models.CharField(max_length=100,choices=CITY_CHOICES, null=True, blank=True)
   looking_at = models.CharField(choices=LOOK_CHOICES, max_length=100,null=True,blank=True)
-  tags = models.CharField(max_length=100, blank=True, null=True)
+  tags = models.CharField(max_length=100,choices=SECTOR, blank=True, null=True)
   description = models.TextField(max_length=1000, blank=True, null=True)
   videos = models.FileField(upload_to='videos/', null=True,blank=True)
   weblink = models.URLField(null=True,blank=True)
   location = models.CharField(max_length=100, null=True, blank=True)
-  team_member1 = models.ImageField(upload_to='images/', null=True, blank=True)
-  team_member2 = models.ImageField(upload_to='images/', null=True, blank=True)
-
+  select_role1 = models.CharField(
+      max_length=100, choices=ROLE, blank=True, null=True)
+  selected_role_name1 = models.CharField(max_length=50, blank=True, null=True)
+  selected_role_image1 = models.ImageField(
+      upload_to='images/', null=True, blank=True)
+  select_role2 = models.CharField(
+      max_length=100, choices=ROLE, blank=True, null=True)
+  selected_role_name2 = models.CharField(max_length=50, blank=True, null=True)
+  selected_role_image2 = models.ImageField(
+      upload_to='images/', null=True, blank=True)
   def __str__(self):
     return str(self.id)
 
@@ -61,38 +114,9 @@ MODEL_CHOICES=(
   ('C2C','C2C'),
 )
 
-SECTOR=(
-  ('AI','AI'),
-  ('Robotics','Robotics'),
-  ('Data Analysis','Data Analysis'),
-  ('Biotech','Biotech'),
-  ('Agritech','Agritech'),
-  ('Bigdata','Bigdata'),
-  ('Blockchain','Blockchain'),
-  ('cybersecurity','cybersecurity'),
-  ('Digital Health', 'Digital Health'),
-  ('Education','Education'),
-  ('E-commerce','E-commerce'),
-  ('Entertainments','Entertainments'),
-  ('Events','Events'),
-  ('Food&Beverage','Food&Beverage'),
-  ('Fintech','Fintech'),
-  ('Food Science & Technology', 'Food Science & Technology'),
-  ('Gaming','Gaming'),
-  ('Hardware','Hardware'),
-  ('Healthcare','Healthcare'),
-  ('Infotech','Inftech'),
-  ('IOT', 'IOT'),
-  ('Manufacturing & Engineering', 'Manufacturing & Engineering'),
-  ('Media','Media'),
-  ('Nanotechnology', 'Nanotechnology'),
-  ('Pharmaceutical', 'Pharmaceutical'),
-  ('Real Estate','Real Estate'),
-  ('Telecom','Telecom'),
-  ('Trasport','Transport'),
-  ('Travel & Hospitality', 'Travel & Hospitality'),
-  ('Others','Others'),
-)
+
+
+
 
 class StartupInfo(models.Model):
   user = models.ForeignKey(User, on_delete = models.CASCADE)
@@ -113,8 +137,12 @@ class StartupInfo(models.Model):
   videofile = models.FileField(upload_to='videos/', default="Not availabe",null=True, blank=True)
   weblink = models.URLField( blank=True)
   location = models.CharField(max_length=100, null=True, blank=True)
-  team_member1 = models.ImageField(upload_to='images/', null=True, blank=True)
-  team_member2 = models.ImageField(upload_to='images/', null=True, blank=True)
+  select_role1= models.CharField(max_length=100,choices=ROLE,blank=True,null=True)
+  selected_role_name1=models.CharField(max_length=50,blank=True,null=True)
+  selected_role_image1 = models.ImageField(upload_to='images/', null=True, blank=True)
+  select_role2 = models.CharField(max_length=100, choices=ROLE, blank=True, null=True)
+  selected_role_name2 = models.CharField(max_length=50, blank=True, null=True)
+  selected_role_image2 = models.ImageField(upload_to='images/', null=True, blank=True)
 
   def __str__(self):
     return str(self.id)

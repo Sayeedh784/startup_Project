@@ -130,12 +130,28 @@ def profile(request,pk):
     customer = CustomerInfo.objects.get(user_id=request.user.id)
     return render(request, 'app/customer_profile.html', {'customer': customer})
 
+def startup_profile(request,pk):
+  startup = StartupInfo.objects.get(pk=pk)
+  return render(request, 'app/startup_profile.html', {'startup': startup})
 
 def startup_home(request):
-  return render(request, 'app/startup_home.html')
+  startups = StartupInfo.objects.all()
+  total_startup = startups.count()
+  context={'startups':startups,'total_startup':total_startup }
+  return render(request, 'app/startup_home.html',context)
+
+def investor_profile(request,pk):
+  investor = Investorinfo.objects.get(pk=pk)
+  return render(request, 'app/investor_profile.html', {'investor': investor})
 
 def investor_home(request):
-  return render(request, 'app/investor_home.html')
+  investors = Investorinfo.objects.all()
+  total_investor = investors.count()
+  context={'investors':investors,'total_investor':total_investor }
+  return render(request, 'app/investor_home.html',context)
+
+
+
 
 def customer(request):
   return render(request, 'app/customer_home.html')
