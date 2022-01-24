@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'crispy_forms',
     'multiselectfield',
+    'django_filters',
 ]
 
 AUTH_USER_MODEL = 'app.User'

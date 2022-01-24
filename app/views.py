@@ -1,5 +1,5 @@
 from django.db.models.query import EmptyQuerySet
-from django.http import request
+from django.http import QueryDict, request
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import login, logout,authenticate
 from django.shortcuts import redirect, render
@@ -10,7 +10,7 @@ from .form import *
 from django.contrib.auth.forms import AuthenticationForm
 from .models import User
 from app.models import *
-
+from .filters import *
 
 
 def home(request):
@@ -79,8 +79,7 @@ def login_request(request):
                 messages.error(request,"Invalid username or password")
         else:
                 messages.error(request,"Invalid username or password")
-    return render(request, 'app/login.html',
-    context={'form':AuthenticationForm()})
+    return render(request, 'app/login.html',context={'form':AuthenticationForm()})
 
 def logout_view(request):
     logout(request)
@@ -136,8 +135,11 @@ def startup_profile(request,pk):
 
 def startup_home(request):
   startups = StartupInfo.objects.all()
-  total_startup = startups.count()
-  context={'startups':startups,'total_startup':total_startup }
+  
+  myfilter = StartupFilter(request.GET,queryset=startups)
+  startups = myfilter.qs
+  after_filter = startups.count()
+  context = {'startups': startups,'myfilter': myfilter, 'after_filter': after_filter}
   return render(request, 'app/startup_home.html',context)
 
 def investor_profile(request,pk):
@@ -146,8 +148,10 @@ def investor_profile(request,pk):
 
 def investor_home(request):
   investors = Investorinfo.objects.all()
-  total_investor = investors.count()
-  context={'investors':investors,'total_investor':total_investor }
+  myfilter = InvestorFilter(request.GET, queryset=investors)
+  investors = myfilter.qs
+  after_filter = investors.count()
+  context = {'investors': investors, 'myfilter': myfilter,'after_filter':after_filter}
   return render(request, 'app/investor_home.html',context)
 
 
