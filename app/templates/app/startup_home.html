@@ -5,7 +5,7 @@
 {% block main-content %}
 
 <div class="container mt-3">
-  <p>Filter by:</p>
+  <small> <p>Filter by:</p></small>
   <div class="row">
     <div class="col-md-12">
   
@@ -21,7 +21,7 @@
   <p><b >Showing {{after_filter}} results</b></p>
 </div>
 <br>
-{% for startup in startups %}
+{% for startup in page.object_list %}
 <a href="{% url 'startup-profile' startup.id %}" style="text-decoration: none;">
 <div class="container">
   <div class="row">
@@ -53,7 +53,7 @@
             <p style="color: black;" ><b> {{startup.business_model}}</b></p>
           </div>
           <div class="card-footer text-muted">
-            <p>Sectors: <b class="me-1"> {{startup.sector}}</b></p>
+            <p>Sectors: <b class="me-2"> {{startup.sector}}</b></p>
           </div>
         </div>
 
@@ -65,5 +65,45 @@
   </div>
 </div>
 </a>
+
+<!-- pagination -->
 {% endfor %}
+<br>
+
+<div class="container">
+  <div class="row my-5">
+    
+    <div class="col-md-4 offset-md-5">
+      <p>page {{page.number}}/{{page.paginator.num_pages}}</p>
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          
+          <li class="page-item">
+            {% if page.has_previous %}
+            <a class="page-link" href="{% url 'startup_home' %}?page={{ page.previous_page_number }}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+            {% endif %}
+          </li>
+          {% for num_page in page.paginator.page_range %}
+          {% if page.number == num_page %}
+          <li class="page-item active"><a class="page-link" href="{% url 'startup_home' %}?page={{ num_page }}">{{ num_page }}</a></li>
+          {% else %}
+          <li class="page-item"><a class="page-link" href="{% url 'startup_home' %}?page={{ num_page }}">{{ num_page }}</a>
+          </li>
+          {% endif %}
+          {% endfor %}
+          <li class="page-item">
+            {% if page.has_next %}
+            <a class="page-link" href="{% url 'startup_home' %}?page={{ page.next_page_number }}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+            {% endif %}
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
 {% endblock main-content %}

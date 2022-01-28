@@ -1,9 +1,9 @@
-from django.db.models.query import EmptyQuerySet
 from django.http import QueryDict, request
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import login, logout,authenticate
 from django.shortcuts import redirect, render
 from django.contrib import messages
+from django.template import context
 from django.views import View
 from django.views.generic import CreateView,ListView
 from .form import *
@@ -11,6 +11,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from .models import User
 from app.models import *
 from .filters import *
+from .import form
+from django.core.paginator import Paginator
 
 
 def home(request):
@@ -92,7 +94,6 @@ def userProfileForm(request,pk):
       form = Startup_profileForm(request.POST,instance=obj)
     elif request.user.is_investor:
       obj = get_object_or_404(Investorinfo, user_id=request.user.id)
-      print()
       form = Investor_profileForm(request.POST, instance=obj)
     elif request.user.is_customer:
       obj = get_object_or_404(CustomerInfo, user_id=request.user.id)
@@ -100,12 +101,15 @@ def userProfileForm(request,pk):
     if form.is_valid():
       form.save()
       if request.user.is_startup:
-        form = Startup_profileForm()
+        startup = StartupInfo.objects.get(user_id=request.user.id)
+        return render(request, 'app/startup_profile.html', {'startup': startup})
       elif request.user.is_investor:
-        form = Investor_profileForm()
-      else:
-        form = Customer_profileForm()
-      messages.success(request,"Profile Updated successfully!!!")
+        investor = Investorinfo.objects.get(user_id=request.user.id)
+        return render(request, 'app/investor_profile.html', {'investor': investor})
+      elif request.user.is_customer:
+        customer = CustomerInfo.objects.get(user_id=request.user.id)
+        return render(request, 'app/customer_profile.html', {'customer': customer})
+        # messages.success(request, "Profile Updated successfully!!!")
   else:
     if request.user.is_startup:
       form = Startup_profileForm()
@@ -131,27 +135,37 @@ def profile(request,pk):
 
 def startup_profile(request,pk):
   startup = StartupInfo.objects.get(pk=pk)
-  return render(request, 'app/startup_profile.html', {'startup': startup})
+  reviews = ReviewRating.objects.filter(startup_id=startup.id, status=True)
+  count = reviews.count()
+  
+  return render(request, 'app/startup_profile.html', {'startup': startup,'reviews':reviews,'count':count})
 
 def startup_home(request):
   startups = StartupInfo.objects.all()
-  
   myfilter = StartupFilter(request.GET,queryset=startups)
   startups = myfilter.qs
   after_filter = startups.count()
-  context = {'startups': startups,'myfilter': myfilter, 'after_filter': after_filter}
+  page = Paginator(startups, per_page=1)
+  page_list = request.GET.get('page')
+  page = page.get_page(page_list)
+  context = {'startups': startups,'page':page,'myfilter': myfilter, 'after_filter': after_filter}
   return render(request, 'app/startup_home.html',context)
 
 def investor_profile(request,pk):
   investor = Investorinfo.objects.get(pk=pk)
-  return render(request, 'app/investor_profile.html', {'investor': investor})
+  reviews = InvestorReviewRating.objects.filter(investor_id=investor.id, status=True)
+  count = reviews.count()
+  return render(request, 'app/investor_profile.html', {'investor': investor,'reviews':reviews,'count':count})
 
 def investor_home(request):
   investors = Investorinfo.objects.all()
   myfilter = InvestorFilter(request.GET, queryset=investors)
   investors = myfilter.qs
   after_filter = investors.count()
-  context = {'investors': investors, 'myfilter': myfilter,'after_filter':after_filter}
+  page = Paginator(investors, per_page=1)
+  page_list = request.GET.get('page')
+  page = page.get_page(page_list)
+  context = {'investors': investors, 'page':page,'myfilter': myfilter,'after_filter':after_filter}
   return render(request, 'app/investor_home.html',context)
 
 
@@ -162,3 +176,58 @@ def customer(request):
 
 def article(request):
   return render(request, 'app/article.html')
+
+
+
+def submit_review(request,startup_id):
+  url=request.META.get('HTTP_REFERER')
+  if request.method == 'POST':
+    try:
+      reviews=ReviewRating.objects.get(user_id=request.user.id, startup_id=startup_id)
+      form=ReviewForm(request.POST, instance=reviews)
+      form.save()
+      messages.success(
+          request, 'Thank you! Your review has been updated.')
+      return redirect(url)
+    except ReviewRating.DoesNotExist:
+      form=ReviewForm(request.POST)
+      if form.is_valid():
+          data=ReviewRating()
+          data.rating=form.cleaned_data['rating']
+          data.review=form.cleaned_data['review']
+          data.startup_id=startup_id
+          data.user_id=request.user.id
+          data.save()
+          
+          return redirect(url)
+
+def investor_submit_review(request,investor_id):
+  url=request.META.get('HTTP_REFERER')
+  if request.method == 'POST':
+    try:
+      reviews=InvestorReviewRating.objects.get(user_id=request.user.id, investor_id=investor_id)
+      form=Investor_ReviewForm(request.POST, instance=reviews)
+      form.save()
+      messages.success(
+          request, 'Thank you! Your review has been updated.')
+      return redirect(url)
+    except InvestorReviewRating.DoesNotExist:
+      form=Investor_ReviewForm(request.POST)
+      if form.is_valid():
+          data=InvestorReviewRating()
+          data.rating=form.cleaned_data['rating']
+          data.review=form.cleaned_data['review']
+          data.investor_id=investor_id
+          data.user_id=request.user.id
+          data.save()
+          
+          return redirect(url)
+
+
+def paginator(request):
+  startups=StartupInfo.objects.all()
+  page= Paginator(startups,per_page=1)
+  page_number=request.GET.get('page',1)
+  page_obj=page.get_page(page_number)
+  context={'startups':page_obj.object_list,'page':page}
+  return render(request,'startup_home.html',context)

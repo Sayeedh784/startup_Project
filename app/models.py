@@ -1,6 +1,8 @@
 from contextlib import nullcontext
+from email.policy import default
 from statistics import mode
 from turtle import title
+from xml.etree.ElementTree import Comment
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.enums import Choices
@@ -125,7 +127,7 @@ class StartupInfo(models.Model):
   title = models.CharField(max_length=100,blank=True,null=True)
   email = models.EmailField(max_length=100, null=True, blank=True)
   mobile = models.CharField(max_length=50, null=True, blank=True)
-  logo = models.ImageField(upload_to='images/', null=True, blank=True)
+  logo = models.ImageField(upload_to='images/',null=True,blank=True)
   establish_year = models.IntegerField(blank=True, null=True)
   business_model = models.CharField(max_length=100, choices=MODEL_CHOICES, blank=True,null=True)
   employee_range = models.CharField(max_length=100, blank=True, null=True)
@@ -163,5 +165,25 @@ class CustomerInfo(models.Model):
   
 
 
+class ReviewRating(models.Model):
+    startup = models.ForeignKey(StartupInfo, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    review = models.TextField(max_length=500, blank=True)
+    rating = models.IntegerField()
+    status = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+      return str(self.id)
+class InvestorReviewRating(models.Model):
+    investor = models.ForeignKey(Investorinfo, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    review = models.TextField(max_length=500, blank=True)
+    rating = models.IntegerField()
+    status = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+      return str(self.id)

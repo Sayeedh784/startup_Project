@@ -1,5 +1,6 @@
 from django.urls import path
-from app import views
+from .import views
+from .views import *
 from django.conf import settings
 from django.conf.urls.static import static
 from .form import *
@@ -15,6 +16,8 @@ urlpatterns = [
     path('user_profileForm/<str:pk>/', views.userProfileForm, name='user-form'),
     path('profile/<int:pk>/', views.profile, name='profile'),
     path('startup-profile/<int:pk>/', views.startup_profile, name='startup-profile'),
+    path('submit_review/<int:startup_id>/',views.submit_review, name='submit_review'),
+    path('investor_submit_review/<int:investor_id>/',views.investor_submit_review, name='investor_submit_review'),
     path('startup_home/',views.startup_home,name='startup_home'),
     path('investor-profile/<int:pk>/',
          views.investor_profile, name='investor-profile'),

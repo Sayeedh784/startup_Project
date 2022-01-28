@@ -78,8 +78,8 @@ class CustomersignUpForm(UserCreationForm):
 
 class MyPasswordChangeForm(PasswordChangeForm):
   old_password = forms.CharField(label=_("Old Password"),
-  strip=False,widget=forms.PasswordInput(attrs={'autocomplete':'current-password','autofocus':True,
-  'class':'form-control'}))
+  strip=False, widget=forms.PasswordInput(attrs={'autocomplete':'current-password','autofocus':True,
+ 'class': 'form-control', 'placeholder': 'Bura PAss'}))
   new_password1 = forms.CharField(label=_("New Password"),
   strip=False,widget=forms.PasswordInput(attrs={'autocomplete':'New password',
   'class':'form-control'}),help_text=password_validation.password_validators_help_text_html())
@@ -108,6 +108,7 @@ class Startup_profileForm(forms.ModelForm):
         fields = ['name', 'company_name','title','email','mobile','logo','establish_year','business_model','employee_range',
         'market_presence','looking_at','sector','description','videofile','weblink','location',
         'select_role1', 'selected_role_name1', 'selected_role_image1', 'select_role2', 'selected_role_name2', 'selected_role_image2']
+        
 
 class Investor_profileForm(forms.ModelForm):
     class Meta:
@@ -119,3 +120,12 @@ class Customer_profileForm(forms.ModelForm):
     class Meta:
         model = CustomerInfo
         fields = ['name','mobile','looking_at','sector']
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = ReviewRating
+        fields = [ 'review', 'rating']
+class Investor_ReviewForm(forms.ModelForm):
+    class Meta:
+        model = InvestorReviewRating
+        fields = [ 'review', 'rating']

@@ -12,3 +12,5 @@ class InvestorAdminModel(admin.ModelAdmin):
 @admin.register(CustomerInfo)
 class CustomerAdminModel(admin.ModelAdmin):
   list_display = ['id','user','name','email']
+  
+admin.site.register(ReviewRating)
