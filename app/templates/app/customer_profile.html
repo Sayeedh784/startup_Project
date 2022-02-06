@@ -3,8 +3,144 @@
 {% block title %}Customer Profile{% endblock title %}
 
 {% block main-content %}
-<h1>this is customer profile</h1>
 
-<h3>{{customer.name}}</h3>
-<h3>{{customer.email}}</h3>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card flex-row  mt-5" style="border: none;">
+        <div class="card-body row px-2 align-items-center">
+          <div class="col-md-3">
+            <img src="{{ customer.image.url }}" width="80%" height="200px" alt="No images">
+          </div>
+          <div class="col-md-5">
+            <h4 class="card-title">
+              <h1><b>{{customer.name}}</b></h1>
+            </h4>
+            <p class="card-text">
+            <h3 class="text-muted">{{customer.profession}}</h3>
+            </p>
+          </div>
+          
+          {% if customer.user.id == request.user.id %}
+          <div class="col-md-4 text-center">
+            <div class="flex-row">
+              <a href="{% url 'user-profile' user.id %}" class="btn btn-lg btn-primary">Update Profile</a>
+            </div>
+          </div>
+          {% elif request.user.is_authenticated %}
+          <div class="col-md-4 text-center">
+            <div class="flex-row">
+              <a href="#" class="btn btn-lg btn-primary">Connect</a>
+            </div>
+          </div>
+          
+          {% else %}
+          <div class="col-md-4 text-center">
+            <div class="flex-row">
+              <a href="{% url 'login' %}" class="btn btn-lg btn-primary">Login or signup to Connect</a>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+</div> <br> <br>
+
+<style>
+#card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+#title {
+  color: grey;
+  font-size: 18px;
+}
+
+#button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+#link {
+  text-decoration: none;
+  font-size: 15px;
+  color: black;
+}
+
+#button:hover, link:hover {
+  opacity: 0.7;
+}
+</style>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="card ">
+        <div class="card-header"><b> General Interests</b></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-4 text-muted">
+              <p><b> Looking at:</b></p>
+            </div>
+            <div class="col-6">
+              <p>{{customer.looking_at}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4 text-muted">
+              <p><b> Sector Focus:</b></p>
+            </div>
+            <div class="col-6">
+              <p>{{customer.sector}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4 text-muted">
+              <p><b> Biography:</b></p>
+            </div>
+            <div class="col-6">
+              <p>{{customer.biography}}</p>
+            </div>
+          </div>
+          
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header">
+          <h3>Contact Details</h3>
+        </div>
+        <div class="card-body">
+          <p><i style="font-size:24px" class="fa me-1">&#xf095;</i> {{customer.mobile}}</p>
+          <br>
+          <p><i style="font-size:24px" class="fa me-1">&#xf0e0;</i> {{customer.email}}</p>
+          <br>
+          <a href="{{customer.facebook_link}}" id="link"><i class="fab fa-facebook-square fa-2x"></i></a>
+          <a class="mx-3" id="link" href="{{customer.linkedin_link}}"><i class="fab fa-linkedin fa-2x"></i></a>
+          <a href="{{customer.twitter_link}}" id="link"><i class="fab fa-twitter-square fa-2x"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock main-content %}

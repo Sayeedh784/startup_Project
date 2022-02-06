@@ -4,8 +4,8 @@
 
 {% block main-content %}
 
-<div class="container mt-3">
-  <small> <p>Filter by:</p></small>
+<div class="container my-5">
+  <small style="padding: 10px;"> <p>Filter by:</p></small>
   <div class="row">
     <div class="col-md-12">
   
@@ -27,7 +27,7 @@
   <div class="row">
     <div class="col-md-12">
 
-      <div class="card flex-row  mt-5 shadow">
+      <div class="card  mt-5 shadow">
         <div class="card-body row px-2 align-items-center">
           <div class="col-md-2">
             <img src="{{ startup.logo.url }}" width="120px" height="150px" alt="No images">
@@ -52,11 +52,10 @@
             <p class="text-muted" >Business Model</p>
             <p style="color: black;" ><b> {{startup.business_model}}</b></p>
           </div>
-          <div class="card-footer text-muted">
-            <p>Sectors: <b class="me-2"> {{startup.sector}}</b></p>
           </div>
-        </div>
-
+          <div style="background-color: rgb(199, 194, 194);" class="card-footer">
+            <p style="color: black;">Sectors: <b class="me-2"> {{startup.sector}}</b></p>
+          </div>
         
       </div>
       

@@ -1,4 +1,5 @@
-from django.http import QueryDict, request
+import re
+from django.http import HttpResponse, QueryDict, request
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import login, logout,authenticate
 from django.shortcuts import redirect, render
@@ -23,7 +24,8 @@ def home(request):
   customer = CustomerInfo.objects.all()
   total_customer = customer.count()
   context = {'total_startup': total_startup,
-             'total_investor': total_investor, 'total_customer': total_customer, }
+             'total_investor': total_investor, 'total_customer': total_customer,
+             'startups':startup,'investors':investor,'customer':customer }
   return render(request,'app/home.html',context)
 
 
@@ -145,7 +147,7 @@ def startup_home(request):
   myfilter = StartupFilter(request.GET,queryset=startups)
   startups = myfilter.qs
   after_filter = startups.count()
-  page = Paginator(startups, per_page=1)
+  page = Paginator(startups, per_page=2)
   page_list = request.GET.get('page')
   page = page.get_page(page_list)
   context = {'startups': startups,'page':page,'myfilter': myfilter, 'after_filter': after_filter}
@@ -162,7 +164,7 @@ def investor_home(request):
   myfilter = InvestorFilter(request.GET, queryset=investors)
   investors = myfilter.qs
   after_filter = investors.count()
-  page = Paginator(investors, per_page=1)
+  page = Paginator(investors, per_page=2)
   page_list = request.GET.get('page')
   page = page.get_page(page_list)
   context = {'investors': investors, 'page':page,'myfilter': myfilter,'after_filter':after_filter}
@@ -171,8 +173,21 @@ def investor_home(request):
 
 
 
-def customer(request):
-  return render(request, 'app/customer_home.html')
+def customer_profile(request,pk):
+  customer = CustomerInfo.objects.get(pk=pk)
+  return render(request, 'app/customer_profile.html',{'customer':customer})
+
+def customer_home(request):
+  customers= CustomerInfo.objects.all()
+  myfilter = CustomerFilter(request.GET,queryset=customers)
+  customers=myfilter.qs
+  count=customers.count()
+  page = Paginator(customers,per_page=2)
+  page_list=request.GET.get('page')
+  page=page.get_page(page_list)
+  context={'customers':customers,'page':page,'myfilter':myfilter,'count':count}
+  return render(request,'app/customer_home.html',context)
+
 
 def article(request):
   return render(request, 'app/article.html')
@@ -224,10 +239,23 @@ def investor_submit_review(request,investor_id):
           return redirect(url)
 
 
-def paginator(request):
-  startups=StartupInfo.objects.all()
-  page= Paginator(startups,per_page=1)
-  page_number=request.GET.get('page',1)
-  page_obj=page.get_page(page_number)
-  context={'startups':page_obj.object_list,'page':page}
-  return render(request,'startup_home.html',context)
+class FollowNotification(View):
+  def get(self,request,notification_pk,profile_pk,*args,**kwargs):
+    notification = Notification.objects.get(pk=notification_pk)
+    if request.user.is_startup:
+      profile = StartupInfo.objects.get(pk=profile_pk)
+    elif request.user.is_investor:
+      profile = Investorinfo.objects.get(pk=profile_pk)
+    elif request.user.is_customer:
+      profile = CustomerInfo.objects.get(pk=profile_pk)
+    notification.user_has_seen = True
+    notification.save()
+    return redirect('profile' ,pk=profile_pk)
+
+class RemoveNotification(View):
+  def get(self, request, notification_pk, profile_pk, *args, **kwargs):
+    notification = Notification.objects.get(pk=notification_pk)
+    notification.user_has_seen = True
+    notification.save()
+    return HttpResponse('Success',content_type = 'text/plain')
+

@@ -3,7 +3,7 @@
 {% block title %}Investor Profile{% endblock title %}
 
 {% block main-content %}
-<div class="container">
+<div class="container my-5">
   <div class="row">
     <div class="col-md-12">
       <div class="card flex-row  mt-5" style="border: none;">
@@ -20,17 +20,23 @@
             </p>
           </div>
           
-          {% if request.user.is_authenticated %}
+          {% if investor.user.id == request.user.id %}
           <div class="col-md-4 text-center">
             <div class="flex-row">
-              <a href="#" class="btn btn-lg btn-primary">Connect</a>
+              <a href="{% url 'user-form' user.id %}" class="btn btn-lg" style="background-color: #FF4D3B; color: white;">Update Profile</a>
+            </div>
+          </div>
+          {% elif request.user.is_authenticated %}
+          <div class="col-md-4 text-center">
+            <div class="flex-row">
+              <a href="#" class="btn btn-lg" style="background-color: #FF4D3B; color: white;">Connect</a>
             </div>
           </div>
           
           {% else %}
           <div class="col-md-4 text-center">
             <div class="flex-row">
-              <a href="{% url 'login' %}" class="btn btn-lg btn-primary">Login or signup to Connect</a>
+              <a href="{% url 'login' %}" class="btn btn-lg" style="background-color: #FF4D3B; color: white;">Login or signup to Connect</a>
             </div>
           </div>
           {% endif %}
@@ -47,14 +53,14 @@
   <div class="row">
     <div class="col-md-9">
       <div class="card ">
-        <div class="card-header"><b> General Information</b></div>
-        <div class="card-body">
+        <div class="card-header" style="background-color: #2F3D50; color: white;" color: white;"><b> General Information</b></div>
+        <div class="card-body ">
           <div class="row">
             <div class="col-4 text-muted">
               <p><b> Establish year:</b></p>
             </div>
             <div class="col-6">
-              <p>{{investor.establish_year}}</p>
+              <p><b> {{investor.establish_year}}</b></p>
             </div>
           </div>
           <div class="row">
@@ -62,7 +68,7 @@
               <p><b> Investor type:</b></p>
             </div>
             <div class="col-6">
-              <p>{{investor.investor_type}}</p>
+              <p><b> {{investor.investor_type}}</b></p>
             </div>
           </div>
           <div class="row">
@@ -70,7 +76,7 @@
               <p><b> Tags:</b></p>
             </div>
             <div class="col-6">
-              <p>{{investor.tags}}</p>
+              <p><b> {{investor.tags}}</b></p>
             </div>
           </div>
           <div class="row">
@@ -78,7 +84,7 @@
               <p><b> Employee range:</b></p>
             </div>
             <div class="col-6">
-              <p>{{investor.employee_range}}</p>
+              <p><b> {{investor.employee_range}}</b></p>
             </div>
           </div>
           <div class="row">
@@ -86,7 +92,7 @@
               <p><b>Looking at:</b></p>
             </div>
             <div class="col-6">
-              <p>{{investor.looking_at}}</p>
+              <p><b> {{investor.looking_at}} </b></p>
             </div>
           </div>
           
@@ -95,7 +101,7 @@
               <p><b> Market presence:</b></p>
             </div>
             <div class="col-6">
-              <p>{{investor.market_presence}}</p>
+              <p><b> {{investor.market_presence}}</b></p>
             </div>
           </div>
           <div class="row">
@@ -103,7 +109,7 @@
               <p><b> Description:</b></p>
             </div>
             <div class="col-6">
-              <p>{{investor.description}}</p>
+              <p><b>{{investor.description}}</b></p>
             </div>
           </div>
           <div class="row">
@@ -111,7 +117,7 @@
               <p><b>Video:</b></p>
             </div>
             <div class="col-6">
-              <p>{{investor.videofile}}</p>
+              <p><b>{{investor.videofile}}</b></p>
             </div>
           </div>
 
@@ -120,8 +126,8 @@
     </div>
     <div class="col-md-3">
       <div class="card">
-        <div class="card-header">
-          <h3>Contact Details</h3>
+        <div class="card-header" style="background-color: #2F3D50; color: white;" color: white;">
+          <b>Contact details</b>
         </div>
         <div class="card-body">
           <p><i style='font-size:24px' class='fas me-1'>&#xf3c5;</i> {{investor.location}}</p>
@@ -132,9 +138,9 @@
           <br>
           <p><a href="{{investor.weblink}}" style="color: black; text-decoration: none;"><i style='font-size:24px' class='fas me-1'>&#xf0ac;</i> {{investor.weblink}}</a></p>
           <br>
-         <a href="#" id="link"><i class="fab fa-facebook-square fa-2x"></i></a>  
-        <a class="mx-3"id="link" href=""><i class="fab fa-linkedin fa-2x"></i></a> 
-        <a href="" id="link"><i class="fab fa-twitter-square fa-2x"></i></a>
+         <a href="{{investor.facebook_link}}" id="link"><i class="fab fa-facebook-square fa-2x"></i></a>  
+        <a class="mx-3"id="link" href="{{investor.linkedin_link}}"><i class="fab fa-linkedin fa-2x"></i></a> 
+        <a href="{{investor.twitter_link}}" id="link"><i class="fab fa-twitter-square fa-2x"></i></a>
         </div>
       </div>
     </div>
@@ -183,15 +189,16 @@
 <div class="container">
   <div class="card">
     <div class="col-md-12">
- <center><h3>Team</h3></center> 
-  <hr>
+      <div class="card-header" style="background-color: #2F3D50; color: white;" color: white;">
+        <center><h3>Team</h3></center>
+ </div>
   <br>
   <div class="row align-items-center justify-content-center">
     <div class="col-md-4">
       <div class="card" id="card">
-  <img src="{{ investor.selected_role_image1.url }}" alt="John" style="width:100%; height: 200px;">
-  <h2>{{investor.selected_role_name1}}</h2>
-  <p class="title" id="title">{{investor.select_role1}}</p>
+  <img src="{{ investor.person1_image.url }}" alt="John" style="width:100%; height: 200px;">
+  <h2>{{investor.person1_name}}</h2>
+  <p class="title" id="title">{{investor.person1}}</p>
   
   
 </div>
@@ -199,9 +206,9 @@
 
     <div class="col-md-4">
       <div class="card" id="card">
-  <img src="{{ investor.selected_role_image2.url }}" height="50%" alt="John" style="width:100%; height: 200px;">
-  <h2>{{investor.selected_role_name2}}</h2>
-  <p class="title" id="title">{{investor.select_role2}}</p>
+  <img src="{{ investor.person2_image.url }}" height="50%" alt="John" style="width:100%; height: 200px;">
+  <h2>{{investor.person2_name}}</h2>
+  <p class="title" id="title">{{investor.person2}}</p>
   
 </div>
     </div>
@@ -266,9 +273,12 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h3>Reviews</h3>
-
-      <hr>
+      <div class="card">
+        <div class="card-header" style="background-color: #2F3D50; color: white;" color: white;">
+          <h3>Reviews</h3>
+        </div>
+      </div>
+      <br>
     </div>
   </div>
 </div>
@@ -307,7 +317,7 @@
         </div>
         <br>
         {% if user.is_authenticated %}
-        <button class="btn btn-primary" type="submit">Post</button>
+        <button class="btn" type="submit" style="background-color: #FF4D3B; color: white;">Post Review</button>
         {% else %}
         <p>You must be login for review.<span><a style="text-decoration: none;"
               href="{% url 'login' %}">login</a></span></p>

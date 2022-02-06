@@ -22,62 +22,22 @@ $('#slider1, #slider2, #slider3, #slider4').owlCarousel({
     }
 })
 
-$(".plus-cart").click(function(){
-    var id = $(this).attr("pid").toString();
-    var eml = this.parentNode.children[2]
-    console.log(id)
-    $.ajax({
-        type:"GET",
-        url:"/pluscart",
-        data:{
-            prod_id:id
-        },
-        success: function(data){
-            eml.innerText = data.quantity
-            document.getElementById("amount").innerText=data.amount
-            document.getElementById("totalamount").innerText=data.totalamount
 
-            
-        }
-    })
-})
+mybutton = document.getElementById("myBtn");
 
-$(".minus-cart").click(function(){
-    var id = $(this).attr("pid").toString();
-    var eml = this.parentNode.children[2]
-    console.log(id)
-    $.ajax({
-        type:"GET",
-        url:"/minuscart",
-        data:{
-            prod_id:id
-        },
-        success: function(data){
-            eml.innerText = data.quantity
-            document.getElementById("amount").innerText=data.amount
-            document.getElementById("totalamount").innerText=data.totalamount
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function () { scrollFunction() };
 
-            
-        }
-    })
-})
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.style.display = "block";
+    } else {
+        mybutton.style.display = "none";
+    }
+}
 
-$(".remove-cart").click(function(){
-    var id = $(this).attr("pid").toString();
-    var eml = this
-    console.log(id)
-    $.ajax({
-        type:"GET",
-        url:"/removecart",
-        data:{
-            prod_id:id
-        },
-        success: function(data){
-           
-            document.getElementById("amount").innerText=data.amount
-            document.getElementById("totalamount").innerText=data.totalamount
-            eml.parentNode.parentNode.parentNode.parentNode.remove()
-            
-        }
-    })
-})
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}

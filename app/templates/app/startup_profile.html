@@ -7,7 +7,7 @@
 {% block main-content %}
 
 
-<div class="container">
+<div class="container my-5">
   <div class="row">
     <div class="col-md-12">
       <div class="card flex-row  mt-5">
@@ -23,22 +23,24 @@
             <h3 class="text-muted">{{startup.title}}</h3>
             </p>
           </div>
-          
-                                                       
-
-
-          {% if request.user.is_authenticated %}
-          
+                    
+          {% if startup.user.pk == request.user.pk %}
           <div class="col-md-4 text-center">
             <div class="flex-row">
-              <a href="#" class="btn btn-lg btn-primary">Connect</a>
+              <a href="{% url 'user-form' user.id %}" class="btn btn-lg" style="background-color: #FF4D3B; color: white;">Update Profile</a>
             </div>
           </div>
-          
+
+          {% elif request.user.is_authenticated %}
+          <div class="col-md-4 text-center">
+            <div class="flex-row">
+              <a href="#" class="btn btn-lg" style="background-color: #FF4D3B; color: white;">Connect</a>
+            </div>
+          </div>
           {% else %}
           <div class="col-md-4 text-center">
             <div class="flex-row">
-              <a href="{% url 'login' %}" class="btn btn-lg btn-primary">Login or signup to Connect</a>
+              <a href="{% url 'login' %}" class="btn btn-lg" style="background-color: #FF4D3B; color: white;">Login or signup to Connect</a>
             </div>
           </div>
           {% endif %}
@@ -55,7 +57,7 @@
   <div class="row">
     <div class="col-md-9">
       <div class="card ">
-        <div class="card-header"><b> General Information</b></div>
+        <div class="card-header" style="background-color: #2F3D50; color: white;"><b> General Information</b></div>
         <div class="card-body">
           <div class="row">
             <div class="col-4 text-muted">
@@ -135,8 +137,8 @@
     </div>
     <div class="col-md-3">
       <div class="card">
-        <div class="card-header">
-          <h3>Contact Details</h3>
+        <div class="card-header" style="background-color: #2F3D50; color: white;">
+          <h6>Contact Details</h6>
         </div>
         <div class="card-body">
           <p><i style='font-size:24px' class='fas me-1'>&#xf3c5;</i> {{startup.location}}</p>
@@ -147,9 +149,9 @@
           <br>
           <p ><a href="{{startup.weblink}}" style="color: black; text-decoration: none;"><i style='font-size:24px' class='fas me-1'>&#xf0ac;</i> {{startup.weblink}}</a></p>
           <br>
-         <a href="#" id="link"><i class="fab fa-facebook-square fa-2x"></i></a>  
-        <a class="mx-3"id="link" href=""><i class="fab fa-linkedin fa-2x"></i></a> 
-        <a href="" id="link"><i class="fab fa-twitter-square fa-2x"></i></a>
+         <a href="{{startup.facebook_link}}" id="link"><i class="fab fa-facebook-square fa-2x"></i></a>  
+        <a class="mx-3"id="link" href="{{startup.linkedin_link}}"><i class="fab fa-linkedin fa-2x"></i></a> 
+        <a href="{{startup.twitter_link}}" id="link"><i class="fab fa-twitter-square fa-2x"></i></a>
         </div>
       </div>
     </div>
@@ -199,17 +201,19 @@
 <div class="container">
   <div class="card">
     <div class="col-md-12">
-      <center>
-        <h3>Team</h3>
-      </center>
-      <hr>
+      <div class="card-header" style="background-color: #2F3D50; color: white;">
+        <center>
+          <h3>Team</h3>
+        </center>
+      </div>
+      
       <br>
       <div class="row align-items-center justify-content-center">
         <div class="col-md-4">
           <div class="card" id="card">
-            <img src="{{ startup.selected_role_image1.url }}" alt="John" style="width:100%; height: 200px;">
-            <h2>{{startup.selected_role_name1}}</h2>
-            <p class="title" id="title">{{startup.select_role1}}</p>
+            <img src="{{ startup.person1_image.url  }}" alt="John" style="width:100%; height: 200px;">
+            <h2>{{startup.person1_name}}</h2>
+            <p class="title" id="title">{{startup.person1}}</p>
 
 
           </div>
@@ -217,10 +221,10 @@
 
         <div class="col-md-4">
           <div class="card" id="card">
-            <img src="{{ startup.selected_role_image2.url }}" height="50%" alt="John"
+            <img src="{{ startup.person2_image.url }}" height="50%" alt="John"
               style="width:100%; height: 200px;">
-            <h2>{{startup.selected_role_name2}}</h2>
-            <p class="title" id="title">{{startup.select_role2}}</p>
+            <h2>{{startup.person2_name}}</h2>
+            <p class="title" id="title">{{startup.person2}}</p>
 
           </div>
         </div>
@@ -231,7 +235,7 @@
 <br><br>
 <style>
 .checked{
-  color: orange;
+  color: #FF4D3B;
 }
 .txt-center {
   text-align: center;
@@ -277,18 +281,22 @@
     content: "\2605";
     position: absolute;
     left: 0;
-    color: orange;
+    color: #FF4D3B;
 }
 </style>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h3>Reviews</h3>
-
-      <hr>
+      
+        <div class="card-header" style="background-color: #2F3D50; color: white;">
+          <h3>Reviews</h3>
+        </div>
+        <br>
+        
+      </div>
     </div>
   </div>
-  </div>
+  
 <div class="container">
   <div class="row">
     <div class="col-md-6">
@@ -318,7 +326,7 @@
       </div>
       <br>
       {% if user.is_authenticated %}
-      <button class="btn btn-primary" type="submit">Post</button>
+      <button class="btn" type="submit" style="background-color: #FF4D3B; color: white;">Post Review</button>
       {% else %} 
       <p>You must be login for review.<span><a style="text-decoration: none;" href="{% url 'login' %}">login</a></span></p>
       {% endif %}
@@ -357,7 +365,7 @@
 </div>
 <hr>
 </div>
-<br>
+
 
 
   

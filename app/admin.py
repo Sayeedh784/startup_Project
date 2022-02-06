@@ -11,6 +11,11 @@ class InvestorAdminModel(admin.ModelAdmin):
   list_display = ['id', 'user', 'name', 'company_name', 'email']
 @admin.register(CustomerInfo)
 class CustomerAdminModel(admin.ModelAdmin):
-  list_display = ['id','user','name','email']
+  list_display = ['id','user','name','email','sector']
   
-admin.site.register(ReviewRating)
+@admin.register(ReviewRating)
+class RewviewRating(admin.ModelAdmin):
+  list_display=['id','rating','created_at']
+@admin.register(InvestorReviewRating)
+class InvestorRewviewRating(admin.ModelAdmin):
+  list_display=['id','rating','created_at']

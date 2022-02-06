@@ -3,5 +3,96 @@
 {% block title %}People{% endblock title %}
 
 {% block main-content %}
-<h1>this is People Home page</h1>
+
+<div class="container my-5" style="padding: 40px;">
+  <p>Filter by:</p>
+  <div class="row">
+    <div class="col-md-12">
+
+      <form action="" method="get">
+        {{ myfilter.form }}
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5 text-muted">
+  <p><b>Showing {{count}} results</b></p>
+</div>
+<br>
+
+{% for customer in page.object_list %}
+<a href="{% url 'customer_profile' customer.id %}" style="text-decoration: none;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card flex-row mt-5 shadow">
+          <div class="card-body row px-2 align-items-center">
+            <div class="col-md-2">
+              <img src="{{ customer.image.url }}" width="120px" height="150px" alt="No images">
+            </div>
+            <div class="col-md-4">
+              <h3 class="card-title">
+                <h2><b style="color: black;">{{customer.name}}</b></h2>
+              </h3>
+              <p class="card-text">
+              <h5 class="text-muted">{{customer.profession}}</h5>
+              </p>
+            </div>
+            <div class="col md 2">
+              <p class="text-muted">Looking at</p>
+              <p style="color: black;"><b> {{customer.looking_at}}</b></p>
+            </div>
+            <div class="col md 2">
+              <p class="text-muted">Sector Focus</p>
+              <p style="color: black;"><b> {{customer.sector}}</b></p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
+{% endfor %}
+<br>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-4 offset-md-5">
+      <p><b> page {{page.number}}/{{page.paginator.num_pages}}</b></p>
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+
+          <li class="page-item">
+            {% if page.has_previous %}
+            <a class="page-link" href="{% url 'customer_home' %}?page={{ page.previous_page_number }}"
+              aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+            {% endif %}
+          </li>
+          {% for num_page in page.paginator.page_range %}
+          {% if page.number == num_page %}
+          <li class="page-item active"><a class="page-link" href="{% url 'customer_home' %}?page={{ num_page }}">{{ num_page }}</a></li>
+          {% else %}
+          <li class="page-item"><a class="page-link" href="{% url 'customer_home' %}?page={{ num_page }}">{{ num_page }}</a>
+          </li>
+          {% endif %}
+          {% endfor %}
+          <li class="page-item">
+            {% if page.has_next %}
+            <a class="page-link" href="{% url 'customer_home' %}?page={{ page.next_page_number }}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+            {% endif %}
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
 {% endblock main-content %}

@@ -4,8 +4,8 @@
 
 {% block main-content %}
 
-<div class="container mt-3">
-  <p>Filter by:</p>
+<div class="container my-5">
+  <p style="padding: 10px;">Filter by:</p>
   <div class="row">
     <div class="col-md-12">
 
@@ -27,7 +27,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <div class="card flex-row mt-5 shadow">
+      <div class="card mt-5 shadow">
         <div class="card-body row px-2 align-items-center">
           <div class="col-md-2">
             <img src="{{ investor.logo.url }}" width="120px" height="150px" alt="No images">
@@ -37,7 +37,7 @@
               <h2><b style="color: black;">{{investor.company_name}}</b></h2>
             </h4>
             <p class="card-text">
-            <h3 class="text-muted">{{investor.title}}</h3>
+            <h4 class="text-muted">{{investor.title}}</h4>
             </p>
           </div>
           <div class="col md 2">
@@ -52,11 +52,11 @@
             <p class="text-muted">Investor Type</p>
             <p style="color: black;"><b> {{investor.investor_type}}</b></p>
           </div>
-          <div class="card-footer text-muted">
-            <p>Tags: <b class="me-1"> {{investor.tags}}</b></p>
-          </div>
+          
         </div>
-
+        <div class="card-footer" style="background-color: rgb(199, 194, 194);">
+          <p style="color: black;">Tags: <b class="me-1"> {{investor.tags}}</b></p>
+        </div>
 
       </div>
 
@@ -72,7 +72,7 @@
   <div class="row my-5">
 
     <div class="col-md-4 offset-md-5">
-      <p>page {{page.number}}/{{page.paginator.num_pages}}</p>
+      <p><b> page {{page.number}}/{{page.paginator.num_pages}}</b></p>
 
       <nav aria-label="Page navigation example">
         <ul class="pagination">

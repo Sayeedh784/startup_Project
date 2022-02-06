@@ -24,7 +24,8 @@ urlpatterns = [
     path('investor_home/',views.investor_home,name='investor_home'),
     
     path('article/',views.article,name='article'),
-    path('customer/',views.customer,name='customer'),
+    path('customer_profile/<int:pk>',views.customer_profile,name='customer_profile'),
+    path('customer_home/',views.customer_home,name='customer_home'),
 
 
     path('login/',views.login_request, name='login'),
