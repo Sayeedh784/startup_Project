@@ -1,5 +1,6 @@
-import re
-from django.http import HttpResponse, QueryDict, request
+from itertools import chain
+from django.db.models import Q
+from django.http import HttpResponse, request
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import login, logout,authenticate
 from django.shortcuts import redirect, render
@@ -16,6 +17,18 @@ from .import form
 from django.core.paginator import Paginator
 
 
+def search_list(request):
+  if request.method == 'POST':
+    q = request.POST['q']
+    startup_data = StartupInfo.objects.filter(company_name__icontains=q)
+    investor_data = Investorinfo.objects.filter(company_name__icontains=q)
+    customer_data = CustomerInfo.objects.filter(name__icontains=q)
+    data = chain(startup_data,investor_data,customer_data)
+    
+  context = {'data': data, 'q': q, 'startup_data': startup_data,'investor_data':investor_data,'customer_data':customer_data}
+  return render(request,'app/search_list.html',context)
+
+
 def home(request):
   startup = StartupInfo.objects.all()
   total_startup = startup.count()
@@ -23,9 +36,10 @@ def home(request):
   total_investor = investor.count()
   customer = CustomerInfo.objects.all()
   total_customer = customer.count()
+  
   context = {'total_startup': total_startup,
              'total_investor': total_investor, 'total_customer': total_customer,
-             'startups':startup,'investors':investor,'customer':customer }
+              'startups':startup,'investors':investor,'customer':customer }
   return render(request,'app/home.html',context)
 
 

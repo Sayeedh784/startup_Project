@@ -1,0 +1,140 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Search_list{% endblock title %}
+
+{% block main-content %}
+<div class="container my-5" style="padding: 40px;">
+  <center><h2>You searched for {{q}}</h2></center>
+  <br>
+{% if startup_data %}
+{% for d in data %}
+<a href="{% url 'startup-profile' d.id %}" style="text-decoration: none;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="card  mt-5 shadow">
+          <div class="card-body row px-2 align-items-center">
+            <div class="col-md-2">
+              <img src="{{ d.logo.url }}" width="120px" height="150px" alt="No images">
+            </div>
+            <div class="col-md-4">
+              <h4 class="card-title">
+                <h2 style="color: black;"><b>{{d.company_name}}</b></h2>
+              </h4>
+              <p class="card-text">
+              <h4 class="text-muted">{{d.title}}</h4>
+              </p>
+            </div>
+            <div class="col-md-2">
+              <p class="text-muted">Establish year</p>
+              <p style="color: black;"><b> {{d.establish_year}}</b></p>
+            </div>
+            <div class="col-md-2">
+              <p class="text-muted">Employee range</p>
+              <p style="color: black;"><b> {{d.employee_range}}</b></p>
+            </div>
+            <div class="col-md-2">
+              <p style="color: black;">Startup</p>
+            </div>
+          </div>
+          <div style="background-color: #2F3D50" class="card-footer">
+            <p style="color: white;">Sectors: <b class="me-2"> {{d.sector}}</b></p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
+
+<!-- pagination -->
+{% endfor %}
+{% elif investor_data %}
+{% for d in data %}
+<a href="{% url 'investor-profile' d.id %}" style="text-decoration: none;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="card  mt-5 shadow">
+          <div class="card-body row px-2 align-items-center">
+            <div class="col-md-2">
+              <img src="{{ d.logo.url }}" width="120px" height="150px" alt="No images">
+            </div>
+            <div class="col-md-4">
+              <h4 class="card-title">
+                <h2 style="color: black;"><b>{{d.company_name}}</b></h2>
+              </h4>
+              <p class="card-text">
+              <h4 class="text-muted">{{d.title}}</h4>
+              </p>
+            </div>
+            <div class="col-md-2">
+              <p class="text-muted">Establish year</p>
+              <p style="color: black;"><b> {{d.establish_year}}</b></p>
+            </div>
+            <div class="col-md-2">
+              <p class="text-muted">Employee range</p>
+              <p style="color: black;"><b> {{d.employee_range}}</b></p>
+            </div>
+            <div class="col-md-2">
+             <p style="color: black;">Investor</p>
+            </div>
+            
+          </div>
+          <div style="background-color: #2F3D50" class="card-footer">
+            <p style="color: white;">Tags: <b class="me-2"> {{d.tags}}</b></p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
+
+<!-- pagination -->
+{% endfor %}
+{% elif customer_data %}
+{% for customer in data %}
+<a href="{% url 'customer_profile' customer.id %}" style="text-decoration: none;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card flex-row mt-5 shadow">
+          <div class="card-body row px-2 align-items-center">
+            <div class="col-md-2">
+              <img src="{{ customer.image.url }}" width="120px" height="150px" alt="No images">
+            </div>
+            <div class="col-md-4">
+              <h3 class="card-title">
+                <h2><b style="color: black;">{{customer.name}}</b></h2>
+              </h3>
+              <p class="card-text">
+              <h5 class="text-muted">{{customer.profession}}</h5>
+              </p>
+            </div>
+            <div class="col md 2">
+              <p class="text-muted">Looking at</p>
+              <p style="color: black;"><b> {{customer.looking_at}}</b></p>
+            </div>
+            <div class="col md 2">
+              <p class="text-muted">Sector Focus</p>
+              <p style="color: black;"><b> {{customer.sector}}</b></p>
+            </div>
+            <div class="col md 2">
+
+              <p style="color: black;"><b>Customer</b></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+</a>
+{% endfor %}
+{% else %}
+<center><h3 style="color: red;">Sorry!! There has no such kind of name</h3></center>
+{% endif %}
+</div>
+{% endblock main-content %}

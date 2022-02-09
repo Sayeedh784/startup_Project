@@ -154,7 +154,7 @@
      <h5 class="card-text text-muted">Profile yourself on a global stage through the Network. Startups looking to raise funds can also upload pitch materials and deal make with investors through the platform.<h5/>
        <br>
        {% if user.is_authenticated %}
-      <a href="{% url 'profile' user.id %}" class="btn btn-outline-danger">Upload Pitch</a>
+      <a href="{% url 'profile' user.id %}" class="btn btn-outline-danger" >Upload Pitch</a>
       {% else %}
       <a href="{% url 'login' %}" class="btn btn-outline-danger">Upload Pitch</a>
       {% endif %}
@@ -234,7 +234,7 @@
   <br><br>
   <div class="row">
     <div class="col-md-3">
-      <div id="zoom" class="card" style="width: 18rem;">
+      <div id="zoom" class="card" >
         <img src="{% static 'app/images/article/elonmusk.png' %}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">Elon Musk</h5>
@@ -248,7 +248,7 @@
       </div>
     </div>
     <div class="col-md-3">
-      <div id="zoom" class="card" style="width: 18rem;">
+      <div id="zoom" class="card" >
         <img src="{% static 'app/images/article/elonmusk.png' %}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">Elon Musk</h5>
@@ -262,7 +262,7 @@
       </div>
     </div>
     <div class="col-md-3">
-      <div id="zoom" class="card" style="width: 18rem;">
+      <div id="zoom" class="card" >
         <img src="{% static 'app/images/article/elonmusk.png' %}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">Elon Musk</h5>
@@ -276,7 +276,7 @@
       </div>
     </div>
     <div class="col-md-3">
-      <div id="zoom" class="card" style="width: 18rem;">
+      <div id="zoom" class="card">
         <img src="{% static 'app/images/article/elonmusk.png' %}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">Elon Musk</h5>
@@ -290,6 +290,8 @@
       </div>
     </div>
   </div>
+  <br><br>
+  <a href="{% url 'article' %}" role="button" class="btn btn-outline-primary">See All Articles</a>
 </div>
     
 <br><br><br>

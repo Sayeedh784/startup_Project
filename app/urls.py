@@ -19,10 +19,9 @@ urlpatterns = [
     path('submit_review/<int:startup_id>/',views.submit_review, name='submit_review'),
     path('investor_submit_review/<int:investor_id>/',views.investor_submit_review, name='investor_submit_review'),
     path('startup_home/',views.startup_home,name='startup_home'),
-    path('investor-profile/<int:pk>/',
-         views.investor_profile, name='investor-profile'),
+    path('investor-profile/<int:pk>/',views.investor_profile, name='investor-profile'),
     path('investor_home/',views.investor_home,name='investor_home'),
-    
+    path('search_list/',views.search_list,name="search_list"),
     path('article/',views.article,name='article'),
     path('customer_profile/<int:pk>',views.customer_profile,name='customer_profile'),
     path('customer_home/',views.customer_home,name='customer_home'),

@@ -1,0 +1,56 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Search_list{% endblock title %}
+
+{% block main-content %}
+<div class="container my-5" style="padding: 40px;">
+  <center>
+    <h1>You searched for {{q}}</h1>
+  </center>
+  <br>
+  {% for d in data %}
+  <a href="{% url 'startup-profile' d.id %}" style="text-decoration: none;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="card  mt-5 shadow">
+            <div class="card-body row px-2 align-items-center">
+              <div class="col-md-2">
+                <img src="{{ d.logo.url }}" width="120px" height="150px" alt="No images">
+              </div>
+              <div class="col-md-4">
+                <h4 class="card-title">
+                  <h2 style="color: black;"><b>{{d.company_name}}</b></h2>
+                </h4>
+                <p class="card-text">
+                <h4 class="text-muted">{{d.title}}</h4>
+                </p>
+              </div>
+              <div class="col-md-2">
+                <p class="text-muted">Establish year</p>
+                <p style="color: black;"><b> {{d.establish_year}}</b></p>
+              </div>
+              <div class="col-md-2">
+                <p class="text-muted">Employee range</p>
+                <p style="color: black;"><b> {{d.employee_range}}</b></p>
+              </div>
+              <div class="col-md-2">
+                <p class="text-muted">Business Model</p>
+                <p style="color: black;"><b> {{d.business_model}}</b></p>
+              </div>
+            </div>
+            <div style="background-color: #2F3D50" class="card-footer">
+              <p style="color: white;">Sectors: <b class="me-2"> {{d.sector}}</b></p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <!-- pagination -->
+  {% endfor %}
+</div>
+{% endblock main-content %}
