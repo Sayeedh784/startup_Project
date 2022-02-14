@@ -110,13 +110,22 @@
 </div>
 
 <br><br><br>
+<style>
+  #btn{
+    border: #FF4D3B solid 1px;
+  }
+  #btn:hover{
+    background-color: #FF4D3B;
+    color: white;
+  }
+</style>
 <div class="container">
   <h1>what the Network offer</h1>
   <br />
   <div class="d-inline-flex p-5 ">
     <div class="row">
     <div class="col-md-4 col-sm-12">
-  <div class="card h-100 shadow p-3" id="card" style="width:400px">
+  <div class="card h-100 shadow p-3 mx-3" id="card" style="width:400px">
     <img class="card-img-top" src="{% static 'app/images/banner1/pic1.jpg' %}" alt="Card image" style="width:100%">
     <div class="card-body">
       <br><br>
@@ -125,13 +134,13 @@
       <h5 class="card-text text-muted">Search for companies or people through the Network, and connect with them for opportunities. Once connected, you will be able to see their latest activity or message them directly.<h5/>
       </div>
         <br>
-      <a href="{% url 'startup_home' %}" class="btn btn-outline-danger">See Profile</a>
+      <a href="{% url 'startup_home' %}" id="btn" class="btn">See Profile</a>
     </div>
   </div>
   </div>
   <div class="col-md-4 col-sm-12">
   
-  <div class="card shadow h-100 p-3" id="card" style="width:400px">
+  <div class="card shadow h-100 p-3 mx-3" id="card" style="width:400px">
     <img class="card-img-top" src="{% static 'app/images/banner1/pic2.PNG' %}" alt="Card image" style="width:100%">
     <div class="card-body">
       <br><br>
@@ -139,24 +148,24 @@
       <h5 class="card-text text-muted">Expand your network through our recommendations. Through machine learning, our recommendation engine considers your preferences and associations to suggest potential business partners.</h5>
       <br>
       {% if user.is_authenticated %}
-      <a href="{% url 'profile' user.id %}" class="btn btn-outline-danger">Get Recommendations</a>
+      <a href="{% url 'profile' user.id %}" id="btn" class="btn" >Get Recommendations</a>
       {% else %}
-      <a href="{% url 'login' %}" class="btn btn-outline-danger">Get Recommendations</a>
+      <a href="{% url 'login' %}" class="btn" id="btn">Get Recommendations</a>
       {% endif %}
     </div>
   </div>
   </div>
   <div class="col-md-4 col-sm-12">
-  <div class="card h-100 shadow p-3" id="card" style="width:400px">
+  <div class="card h-100 shadow p-3 mx-3" id="card" style="width:400px">
     <img class="card-img-top" src="{% static 'app/images/banner1/pic3.PNG' %}" alt="Card image" style="width:100%">
     <div class="card-body">
       <h4 class="card-title">Pitch</h4>
      <h5 class="card-text text-muted">Profile yourself on a global stage through the Network. Startups looking to raise funds can also upload pitch materials and deal make with investors through the platform.<h5/>
        <br>
        {% if user.is_authenticated %}
-      <a href="{% url 'profile' user.id %}" class="btn btn-outline-danger" >Upload Pitch</a>
+      <a href="{% url 'profile' user.id %}" id="btn" class="btn" >Upload Pitch</a>
       {% else %}
-      <a href="{% url 'login' %}" class="btn btn-outline-danger">Upload Pitch</a>
+      <a href="{% url 'login' %}" class="btn" id="btn">Upload Pitch</a>
       {% endif %}
     </div>
   </div>
@@ -310,7 +319,7 @@
   /* Style the button and place it in the middle of the container/image */
   #container .btn {
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
@@ -327,6 +336,7 @@
     position: absolute;
     top: 30%;
     left: 30%;
+    text-align: center;
     color: white;
     font-size: 60px;
   }

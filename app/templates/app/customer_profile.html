@@ -4,7 +4,7 @@
 
 {% block main-content %}
 
-<div class="container">
+<div class="container my-5" style="padding: 40px;">
   <div class="row">
     <div class="col-md-12">
       <div class="card flex-row  mt-5" style="border: none;">
@@ -24,20 +24,20 @@
           {% if customer.user.id == request.user.id %}
           <div class="col-md-4 text-center">
             <div class="flex-row">
-              <a href="{% url 'user-profile' user.id %}" class="btn btn-lg btn-primary">Update Profile</a>
+              <a href="{% url 'user-profile' user.id %}" class="btn" style="background-color: #FF4D3B; color: white;">Update Profile</a>
             </div>
           </div>
           {% elif request.user.is_authenticated %}
           <div class="col-md-4 text-center">
             <div class="flex-row">
-              <a href="#" class="btn btn-lg btn-primary">Connect</a>
+              <a href="#" class="btn" style="background-color: #FF4D3B; color: white;">Connect</a>
             </div>
           </div>
           
           {% else %}
           <div class="col-md-4 text-center">
             <div class="flex-row">
-              <a href="{% url 'login' %}" class="btn btn-lg btn-primary">Login or signup to Connect</a>
+              <a href="{% url 'login' %}" class="btn" style="background-color: #FF4D3B; color: white;">Login or signup to Connect</a>
             </div>
           </div>
           {% endif %}
@@ -142,5 +142,5 @@
     </div>
   </div>
 </div>
-
+<br><br>
 {% endblock main-content %}

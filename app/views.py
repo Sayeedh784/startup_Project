@@ -37,6 +37,7 @@ def home(request):
   customer = CustomerInfo.objects.all()
   total_customer = customer.count()
   
+  
   context = {'total_startup': total_startup,
              'total_investor': total_investor, 'total_customer': total_customer,
               'startups':startup,'investors':investor,'customer':customer }
@@ -153,8 +154,7 @@ def startup_profile(request,pk):
   startup = StartupInfo.objects.get(pk=pk)
   reviews = ReviewRating.objects.filter(startup_id=startup.id, status=True)
   count = reviews.count()
-  
-  return render(request, 'app/startup_profile.html', {'startup': startup,'reviews':reviews,'count':count})
+  return render(request, 'app/startup_profile.html', {'startup': startup, 'reviews': reviews, 'count': count})
 
 def startup_home(request):
   startups = StartupInfo.objects.all()
@@ -171,7 +171,7 @@ def investor_profile(request,pk):
   investor = Investorinfo.objects.get(pk=pk)
   reviews = InvestorReviewRating.objects.filter(investor_id=investor.id, status=True)
   count = reviews.count()
-  return render(request, 'app/investor_profile.html', {'investor': investor,'reviews':reviews,'count':count})
+  return render(request, 'app/investor_profile.html', {'investor': investor, 'reviews': reviews, 'count': count})
 
 def investor_home(request):
   investors = Investorinfo.objects.all()
@@ -267,9 +267,93 @@ class FollowNotification(View):
     return redirect('profile' ,pk=profile_pk)
 
 class RemoveNotification(View):
-  def get(self, request, notification_pk, profile_pk, *args, **kwargs):
+  def delete(self, request, notification_pk, profile_pk, *args, **kwargs):
     notification = Notification.objects.get(pk=notification_pk)
     notification.user_has_seen = True
     notification.save()
     return HttpResponse('Success',content_type = 'text/plain')
+
+
+class ListThreads(View):
+    def get(self, request, *args, **kwargs):
+        threads = ThreadModel.objects.filter(
+            Q(user=request.user) | Q(receiver=request.user))
+
+        context = {
+            'threads': threads
+        }
+
+        return render(request, 'app/inbox.html', context)
+
+
+class CreateThread(View):
+    def get(self, request, *args, **kwargs):
+        form = ThreadForm()
+
+        context = {
+            'form': form
+        }
+
+        return render(request, 'app/create_thread.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = ThreadForm(request.POST)
+
+        username = request.POST.get('username')
+
+        try:
+            receiver = User.objects.get(username=username)
+            if ThreadModel.objects.filter(user=request.user, receiver=receiver).exists():
+                thread = ThreadModel.objects.filter(
+                    user=request.user, receiver=receiver)[0]
+                return redirect('thread', pk=thread.pk)
+            elif ThreadModel.objects.filter(user=receiver, receiver=request.user).exists():
+                thread = ThreadModel.objects.filter(
+                    user=receiver, receiver=request.user)[0]
+                return redirect('thread', pk=thread.pk)
+
+            if form.is_valid():
+                thread = ThreadModel(
+                    user=request.user,
+                    receiver=receiver
+                )
+                thread.save()
+
+                return redirect('thread', pk=thread.pk)
+        except:
+            return redirect('create-thread')
+
+
+class ThreadView(View):
+    def get(self, request, pk, *args, **kwargs):
+        form = MessageForm()
+        thread = ThreadModel.objects.get(pk=pk)
+        message_list = MessageModel.objects.filter(thread__pk__contains=pk)
+        context = {
+            'thread': thread,
+            'form': form,
+            'message_list': message_list
+        }
+
+        return render(request, 'app/thread.html', context)
+
+
+class CreateMessage(View):
+    def post(self, request, pk, *args, **kwargs):
+        thread = ThreadModel.objects.get(pk=pk)
+        if thread.receiver == request.user:
+            receiver = thread.user
+        else:
+            receiver = thread.receiver
+
+        message = MessageModel(
+            thread=thread,
+            sender_user=request.user,
+            receiver_user=receiver,
+            body=request.POST.get('message')
+        )
+
+        message.save()
+        
+        return redirect('thread', pk=pk)
 

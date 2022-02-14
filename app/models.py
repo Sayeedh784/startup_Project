@@ -1,3 +1,5 @@
+from statistics import mode
+from tkinter.tix import Tree
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from multiselectfield import MultiSelectField
@@ -6,6 +8,7 @@ class User(AbstractUser):
   is_customer = models.BooleanField(default=False)
   is_investor = models.BooleanField(default=False)
   is_startup = models.BooleanField(default=False)
+  friends = models.ManyToManyField('User',blank=True)
 
 CITY_CHOICES = (
   ('Dhaka','Dhaka'),
@@ -161,9 +164,6 @@ class CustomerInfo(models.Model):
   def __str__(self):
     return str(self.id)
   
-  
-
-
 class ReviewRating(models.Model):
     startup = models.ForeignKey(StartupInfo, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -192,8 +192,10 @@ class Notification(models.Model):
   notification_type = models.IntegerField()
   to_user = models.ForeignKey(User,related_name='notification_to',on_delete=models.CASCADE,null=True)
   from_user = models.ForeignKey(User,related_name='notification_from',on_delete=models.CASCADE,null=True)
+  thread = models.ForeignKey('ThreadModel', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
   date = models.DateTimeField(auto_now_add=True)
   user_has_seen = models.BooleanField(default=False)
+
 
 class ThreadModel(models.Model):
   user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='+')
@@ -208,5 +210,3 @@ class MessageModel(models.Model):
   image = models.ImageField(upload_to='message_images/',blank=True,null=True)
   date = models.DateTimeField(auto_now_add=True)
   is_read= models.BooleanField(default=False)
-
-

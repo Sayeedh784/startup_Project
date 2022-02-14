@@ -26,6 +26,10 @@ urlpatterns = [
     path('customer_profile/<int:pk>',views.customer_profile,name='customer_profile'),
     path('customer_home/',views.customer_home,name='customer_home'),
 
+    path('inbox/', ListThreads.as_view(), name='inbox'),
+    path('inbox/create-thread/', CreateThread.as_view(), name='create-thread'),
+    path('inbox/<int:pk>/', ThreadView.as_view(), name='thread'),
+    path('inbox/<int:pk>/create-message/',CreateMessage.as_view(), name='create-message'),
 
     path('login/',views.login_request, name='login'),
     path('logout/',views.logout_view, name='logout'),

@@ -29,7 +29,7 @@
           {% elif request.user.is_authenticated %}
           <div class="col-md-4 text-center">
             <div class="flex-row">
-              <a href="#" class="btn btn-lg" style="background-color: #FF4D3B; color: white;">Connect</a>
+              <a href="{% url 'thread' user.id %}" class="btn btn-lg" style="background-color: #FF4D3B; color: white;">Connect</a>
             </div>
           </div>
           

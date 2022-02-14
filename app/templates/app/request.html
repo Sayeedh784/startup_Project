@@ -1,0 +1,24 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Connect{% endblock title %}
+
+{% block main-content %}
+
+{% if request.user.is_authenticated %}
+  <h1>Hi {{user}}</h1>
+  <a href=""></a>
+  <h2>Requests</h2>
+  {% for r in fr %}
+    <a href="{% url 'accept' r.id %}">Accept {{r.from_user}}</a>
+    {% endfor %}
+    <h2>Friends</h2>
+    {{ user.friends.all }}
+    <h2>others Users</h2>
+    {% for user in alluser %}
+    <a href="{% url 'add-friend' user.id %}">{{user}}+</a>
+  {% endfor %}
+{% else %}
+<a href="{% url 'login' %}">Login</a>
+{% endif %}
+
+{% endblock main-content %}

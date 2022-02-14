@@ -34,7 +34,9 @@
           {% elif request.user.is_authenticated %}
           <div class="col-md-4 text-center">
             <div class="flex-row">
-              <a href="#" class="btn btn-lg" style="background-color: #FF4D3B; color: white;">Connect</a>
+              
+              <a href="{% url 'thread' user.id %}" class="btn btn-lg" style="background-color: #FF4D3B; color: white;">Connect</a>
+              
             </div>
           </div>
           {% else %}
@@ -64,7 +66,7 @@
               <p><b> Establish year:</b></p>
             </div>
             <div class="col-6">
-              <p>{{startup.establish_year}}</p>
+              <p><b>{{startup.establish_year}}</b></p>
             </div>
           </div>
           <div class="row">
@@ -72,7 +74,7 @@
               <p><b> Sector:</b></p>
             </div>
             <div class="col-6">
-              <p>{{startup.sector}}</p>
+              <p><b>{{startup.sector}}</b></p>
             </div>
           </div>
           <div class="row">
@@ -80,7 +82,7 @@
               <p><b> Employee range:</b></p>
             </div>
             <div class="col-6">
-              <p>{{startup.employee_range}}</p>
+              <p><b>{{startup.employee_range}}</b></p>
             </div>
           </div>
           <div class="row">
@@ -88,7 +90,7 @@
               <p><b>Looking at:</b></p>
             </div>
             <div class="col-6">
-              <p>{{startup.looking_at}}</p>
+              <p><b>{{startup.looking_at}}</b></p>
             </div>
           </div>
           <div class="row">
@@ -96,7 +98,7 @@
               <p><b> Sector:</b></p>
             </div>
             <div class="col-6">
-              <p>{{startup.sector}}</p>
+              <p><b>{{startup.sector}}</b></p>
             </div>
           </div>
           <div class="row">
@@ -104,7 +106,7 @@
               <p><b> Business Model:</b></p>
             </div>
             <div class="col-6">
-              <p>{{startup.business_model}}</p>
+              <p><b>{{startup.business_model}}</b></p>
             </div>
           </div>
           <div class="row">
@@ -112,7 +114,7 @@
               <p><b> Market presence:</b></p>
             </div>
             <div class="col-6">
-              <p>{{startup.market_presence}}</p>
+              <p><b>{{startup.market_presence}}</b></p>
             </div>
           </div>
           <div class="row">
@@ -120,7 +122,7 @@
               <p><b> Description:</b></p>
             </div>
             <div class="col-6">
-              <p>{{startup.description}}</p>
+              <p><b>{{startup.description}}</b></p>
             </div>
           </div>
           <div class="row">
@@ -325,8 +327,18 @@
         </div>
       </div>
       <br>
+      <style>
+        #btn:hover{
+          border: #FF4D3B solid 1px;
+          
+        }
+        #btn{
+          background-color: #FF4D3B;
+          color: white;
+        }
+      </style>
       {% if user.is_authenticated %}
-      <button class="btn" type="submit" style="background-color: #FF4D3B; color: white;">Post Review</button>
+      <button class="btn" type="submit" id="btn">Submit Review</button>
       {% else %} 
       <p>You must be login for review.<span><a style="text-decoration: none;" href="{% url 'login' %}">login</a></span></p>
       {% endif %}
