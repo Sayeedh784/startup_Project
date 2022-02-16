@@ -1,0 +1,196 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Pricing Table{% endblock title %}
+
+{% block main-content %}
+<style>
+  .pricingTable{
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    text-align: center;
+    padding: 35px 35px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);
+}
+.pricingTable:before{
+    content: '';
+    background-color: #2F3D50;
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);
+    position: absolute;
+    left: 25px;
+    right: 25px;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+}
+.pricingTable .pricingTable-header{
+    text-align: left;
+    margin: 0 0 10px;
+}
+.pricingTable .title{
+    font-size: 40px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 40px;
+    text-align: center;
+    text-transform: capitalize;
+    margin: 0;
+}
+.pricingTable .price-value{
+    color: #054982;
+    background-color: #fff;
+    text-align: center;
+    padding: 50px 90px 50px 0;
+    margin: 0 0 0 -20px;
+    display: inline-block;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+.pricingTable .price-value .amount{
+    font-size: 40px;
+    font-weight: 300;
+    line-height: 40px;
+    display: block;
+}
+.pricingTable .price-value .duration{
+    font-size: 15px;
+    text-transform: capitalize;
+    display: block;
+}
+.pricingTable .pricing-content{
+    text-align: left;
+    padding: 0;
+    margin: 0 0 30px;
+    list-style: none;
+    display: inline-block;
+}
+.pricingTable .pricing-content li{
+    font-size: 17px;
+    line-height: 25px;
+    text-transform: capitalize;
+    padding: 0 0 0 20px;
+    margin: 0 0 18px;
+    position: relative;
+}
+.pricingTable .pricing-content li:last-child{ margin: 0; }
+.pricingTable .pricing-content li:before{
+    content: "\f00c";
+    color: #59af23;
+    font-family: "Font Awesome 5 free";
+    font-size: 14px;
+    font-weight: 900;
+    position: absolute;
+    top: 1px;
+    left: 0;
+}
+.pricingTable .pricing-content li.disable:before{
+    content: "\f00d";
+    color: #DD434E;
+}
+.pricingTable .pricingTable-signup a{
+    color: #004b86;
+    background: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 8px 25px;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+.pricingTable .pricingTable-signup a:hover{ text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.6); }
+.pricingTable.darkblue:before{ background-color: #FF4D3B; }
+.pricingTable.darkblue .price-value,
+.pricingTable.darkblue .pricingTable-signup a{
+    color: #02153e;
+}
+.pricingTable.gray:before{ background-color: #262626; }
+.pricingTable.gray .price-value,
+.pricingTable.gray .pricingTable-signup a{
+    color: #262626;
+}
+@media only screen and (max-width: 990px){
+    .pricingTable{ margin: 0 10px 40px; }
+}
+
+</style>
+
+  <div class="container my-5" style="padding-top: 30px;">
+    <div class="row">
+      <div class="col-md-4 col-sm-4">
+        <div class="pricingTable">
+          <div class="pricingTable-header">
+            <h3 class="title">Free</h3>
+            <div class="price-value">
+              <span class="amount">0 Taka</span>
+              <span class="duration">Only one month</span>
+            </div>
+          </div>
+          <ul class="pricing-content">
+            <li>50GB Disk Space</li>
+            <li>50 Email Accounts</li>
+            <li>50GB Bandwidth</li>
+            <li class="disable">Maintenance</li>
+            <li class="disable">15 Subdomains</li>
+          </ul>
+          <div class="pricingTable-signup">
+            {% if request.user.is_startup%}
+            <a href="{% url 'startup-profile' user.id %}">Active</a>
+            {% elif request.user.is_investor %}
+            <a href="{% url 'investor-profile' user.id %}">Active</a>
+            {% elif request.user.is_customer %}
+            <a href="{% url 'customer_profile' user.id %}">Active</a>
+            {% else %}
+            <a href="{% url 'register' %}">Signup</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4">
+        <div class="pricingTable darkblue">
+          <div class="pricingTable-header">
+            <h3 class="title">Standard</h3>
+            <div class="price-value">
+              <span class="amount">500 Taka</span>
+              <span class="duration">Per Month</span>
+            </div>
+          </div>
+          <ul class="pricing-content">
+            <li>50GB Disk Space</li>
+            <li>50 Email Accounts</li>
+            <li>50GB Bandwidth</li>
+            <li>Maintenance</li>
+            <li class="disable">15 Subdomains</li>
+          </ul>
+          <div class="pricingTable-signup">
+            <a href="#">Sign Up</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4">
+        <div class="pricingTable">
+          <div class="pricingTable-header">
+            <h3 class="title">Premium</h3>
+            <div class="price-value">
+              <span class="amount">1000 Taka</span>
+              <span class="duration">Per Month</span>
+            </div>
+          </div>
+          <ul class="pricing-content">
+            <li>50GB Disk Space</li>
+            <li>50 Email Accounts</li>
+            <li>50GB Bandwidth</li>
+            <li class="disable">Maintenance</li>
+            <li class="disable">15 Subdomains</li>
+          </ul>
+          <div class="pricingTable-signup">
+            <a href="#">Sign Up</a>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+{% endblock main-content %}

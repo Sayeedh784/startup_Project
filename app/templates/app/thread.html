@@ -14,14 +14,15 @@
 }
 
 .received-message {
-	background-color: #f3f3f3;
+	background-color: #FF4D3B;
+  color: white;
 	border-radius: 30px;
 	padding: 10px 25px;
 	width: 25%;
 }
 
 .sent-message {
-	background-color: rgb(1, 196, 255);
+	background-color: #2F3D50;
 	color: #fff;
 	border-radius: 30px;
 	padding: 10px 25px;
@@ -32,7 +33,7 @@
 
 <div class="container my-5" style="padding: 40px;">
   <div class="row">
-    <div class="card col-md-12 mt-5 p-3 shadow-sm">
+    <div class="card col-md-8 mt-5 p-3 shadow-sm">
       {% if thread.receiver == request.user %}
       <h5>@{{ thread.user }}</h5>
       {% else %}
@@ -43,7 +44,7 @@
 
   {% if message_list.all.count == 0 %}
   <div class="row my-5">
-    <div class="col-md-12">
+    <div class="col-md-8">
       <p class="empty-text">No Messages</p>
     </div>
   </div>
@@ -51,7 +52,8 @@
 
   {% for message in message_list %}
   <div class="row">
-    <div class="col-md-12 my-1">
+    <div class="col-md-8 my-1">
+      
       {% if message.sender_user == request.user %}
       <div class="sent-message my-3">
         <p>{{ message.body }}</p>
@@ -64,9 +66,11 @@
     </div>
   </div>
   {% endfor %}
+  
+  
 
   <div class="row">
-    <div class="card col-md-12 p-3 shadow-sm">
+    <div class="card col-md-8 p-3 shadow-sm">
       <form method="POST" action="{% url 'create-message' thread.pk %}" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form | crispy }}
@@ -76,6 +80,5 @@
     </div>
   </div>
 </div>
-
 
 {% endblock main-content %}

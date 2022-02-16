@@ -1,3 +1,4 @@
+from concurrent.futures import thread
 from itertools import chain
 from django.db.models import Q
 from django.http import HttpResponse, request
@@ -43,7 +44,10 @@ def home(request):
               'startups':startup,'investors':investor,'customer':customer }
   return render(request,'app/home.html',context)
 
-
+def about(request):
+  return render(request,'app/about.html')
+def pricing(request):
+  return render(request, 'app/pricing_table.html')
 def register(request):
     return render(request, 'app/register.html')
 
@@ -150,11 +154,14 @@ def profile(request,pk):
     customer = CustomerInfo.objects.get(user_id=request.user.id)
     return render(request, 'app/customer_profile.html', {'customer': customer})
 
-def startup_profile(request,pk):
+
+def startup_profile(request, pk):
   startup = StartupInfo.objects.get(pk=pk)
   reviews = ReviewRating.objects.filter(startup_id=startup.id, status=True)
   count = reviews.count()
-  return render(request, 'app/startup_profile.html', {'startup': startup, 'reviews': reviews, 'count': count})
+  thread = ThreadModel.objects.filter(pk=pk)
+  message_list = MessageModel.objects.filter(thread__pk__contains=pk)
+  return render(request, 'app/startup_profile.html', {'startup': startup, 'reviews': reviews, 'count': count,'thrad':thread ,'message_list': message_list})
 
 def startup_home(request):
   startups = StartupInfo.objects.all()
@@ -171,7 +178,9 @@ def investor_profile(request,pk):
   investor = Investorinfo.objects.get(pk=pk)
   reviews = InvestorReviewRating.objects.filter(investor_id=investor.id, status=True)
   count = reviews.count()
-  return render(request, 'app/investor_profile.html', {'investor': investor, 'reviews': reviews, 'count': count})
+  thread = ThreadModel.objects.filter(pk=pk)
+  message_list = MessageModel.objects.filter(thread__pk__contains=pk)
+  return render(request, 'app/investor_profile.html', {'investor': investor, 'reviews': reviews, 'count': count,'thread':thread,'message_list':message_list})
 
 def investor_home(request):
   investors = Investorinfo.objects.all()
@@ -321,6 +330,7 @@ class CreateThread(View):
 
                 return redirect('thread', pk=thread.pk)
         except:
+            messages.error(request, 'Invalid username!!')
             return redirect('create-thread')
 
 
@@ -336,7 +346,6 @@ class ThreadView(View):
         }
 
         return render(request, 'app/thread.html', context)
-
 
 class CreateMessage(View):
     def post(self, request, pk, *args, **kwargs):
@@ -354,6 +363,5 @@ class CreateMessage(View):
         )
 
         message.save()
-        
-        return redirect('thread', pk=pk)
 
+        return redirect('thread', pk=pk)

@@ -19,3 +19,11 @@ class RewviewRating(admin.ModelAdmin):
 @admin.register(InvestorReviewRating)
 class InvestorRewviewRating(admin.ModelAdmin):
   list_display=['id','rating','created_at']
+
+@admin.register(ThreadModel)
+class ThreadModelAdmin(admin.ModelAdmin):
+  list_display=['id','user','receiver']
+
+@admin.register(MessageModel)
+class MessageModelAdmin(admin.ModelAdmin):
+  list_display=['id','sender_user','receiver_user','date']
