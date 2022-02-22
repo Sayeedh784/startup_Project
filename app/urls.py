@@ -1,8 +1,6 @@
 from django.urls import path
 from .import views
 from .views import *
-from django.conf import settings
-from django.conf.urls.static import static
 from .form import *
 from django.contrib.auth import views as auth_views
 
@@ -25,7 +23,7 @@ urlpatterns = [
     path('investor_home/',views.investor_home,name='investor_home'),
     path('search_list/',views.search_list,name="search_list"),
     path('article/',views.article,name='article'),
-    path('customer_profile/<int:pk>',views.customer_profile,name='customer_profile'),
+    path('customer_profile/<int:pk>/',views.customer_profile,name='customer_profile'),
     path('customer_home/',views.customer_home,name='customer_home'),
 
     path('inbox/', ListThreads.as_view(), name='inbox'),
@@ -58,4 +56,4 @@ urlpatterns = [
          as_view(template_name='app/password_reset_complete.html'),
          name='password_reset_complete'),
     
-] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+]

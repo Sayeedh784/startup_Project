@@ -29,11 +29,23 @@
 </head>
 
 <body>
+  <style>
+    .nav-link{
+      color: white;
+      transition: all .3s ease-in-out;
+      
+    }
+    .nav-link:hover{
+      color: #FF4D3B;
+      transform: scale(1.1);
+      
+    }
+  </style>
   <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12">
-      <nav id="nav" class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #2F3D50;">
+      <nav id="nav" class="navbar navbar-expand-lg  fixed-top" style="background-color: #2F3D50;">
         <div class="container">
-          <a class="navbar-brand" href="/">StartupBD</a>
+          <a class="navbar-brand" href="/" style="color: white; text-decoration:none;">StartupBD</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -44,19 +56,19 @@
                 <a class="nav-link active" aria-current="page" href="/">Home</a>
               </li>
               <li class="nav-item mx-2">
-                <a href="{% url 'startup_home' %}" class="nav-link text-white">Startups</a>
+                <a href="{% url 'startup_home' %}" class="nav-link">Startups</a>
               </li>
               <li class="nav-item mx-2">
-                <a href="{% url 'investor_home' %}" class="nav-link text-white">Investors</a>
+                <a href="{% url 'investor_home' %}" class="nav-link">Investors</a>
               </li>
               <li class="nav-item mx-2">
-                <a href="{% url 'customer_home' %}" class="nav-link text-white">People</a>
+                <a href="{% url 'customer_home' %}" class="nav-link">People</a>
               </li>
               <li class="nav-item mx-2">
-                <a href="{% url 'article' %}" class="nav-link text-white">Article</a>
+                <a href="{% url 'article' %}" class="nav-link">Article</a>
               </li>
               <li class="nav-item mx-2">
-                <a href="{% url 'about' %}" class="nav-link text-white">About</a>
+                <a href="{% url 'about' %}" class="nav-link">About</a>
               </li>
             </ul>
       
@@ -70,7 +82,7 @@
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 {% if request.user.is_authenticated %}
                 <li class="nav-item dropdown mx-2">
-                  <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button"
+                  <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     {{request.user.username|capfirst}}
                   </a>
@@ -83,17 +95,17 @@
                 </li>
       
                 <li class="nav-item mx-2">
-                  <a href="{% url 'inbox' %}" class="nav-link text-white"><i class="far fa-comment-alt "></i></a>
+                  <a href="{% url 'inbox' %}" class="nav-link"><i class="far fa-comment-alt "></i></a>
                 </li>
                 <li class="nav-item mx-2">
-                  <a href="{% url 'logout' %}" class="nav-link text-white">Logout</a>
+                  <a href="{% url 'logout' %}" class="nav-link">Logout</a>
                 </li>
                 {% else %}
                 <li class="nav-item mx-2">
-                  <a href="{% url 'register' %}" class="nav-link text-white">Registration</a>
+                  <a href="{% url 'register' %}" class="nav-link">Registration</a>
                 </li>
                 <li class="nav-item mx-2">
-                  <a href="{% url 'login' %}" class="nav-link text-white">Login</a>
+                  <a href="{% url 'login' %}" class="nav-link">Login</a>
                 </li>
                 {% endif %}
               </ul>
@@ -156,7 +168,7 @@
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                   <!-- Content -->
                   <h4 class="text-uppercase fw-bold mb-4">
-                  <i class="fa fa-rocket" style="font-size:24px"></i>StartupBD
+                  <i class="fa fa-rocket me-1" style="font-size:24px"></i>StartupBD
                   </h4>
                   <p>
                     Here we connect you for grow your business.

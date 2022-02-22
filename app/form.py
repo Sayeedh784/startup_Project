@@ -107,7 +107,7 @@ class Startup_profileForm(forms.ModelForm):
         model = StartupInfo
         fields = ['name', 'company_name','title','email','mobile','logo','establish_year','business_model','employee_range',
                   'market_presence', 'looking_at', 'sector', 'description', 'videofile', 'weblink', 'facebook_link', 'linkedin_link', 'twitter_link', 'location',
-                  'person1', 'person1_name', 'person2_image', 'person2', 'person2_name', 'person2_image']
+                  'person1', 'person1_name', 'person1_image', 'person2', 'person2_name', 'person2_image']
         
 
 class Investor_profileForm(forms.ModelForm):
@@ -115,7 +115,7 @@ class Investor_profileForm(forms.ModelForm):
         model = Investorinfo
         fields = ['name', 'company_name','title', 'email', 'mobile', 'logo', 'establish_year', 'investor_type', 'employee_range',
         'market_presence', 'looking_at', 'tags', 'description', 'videos', 'weblink','facebook_link','linkedin_link','twitter_link', 'location',
-        'person1','person1_name','person2_image','person2','person2_name','person2_image']
+        'person1','person1_name','person1_image','person2','person2_name','person2_image']
 class Customer_profileForm(forms.ModelForm):
     class Meta:
         model = CustomerInfo

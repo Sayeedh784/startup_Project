@@ -1,4 +1,3 @@
-from concurrent.futures import thread
 from itertools import chain
 from django.db.models import Q
 from django.http import HttpResponse, request
@@ -112,25 +111,27 @@ def userProfileForm(request,pk):
   if request.method == "POST":
     if request.user.is_startup:
       obj = get_object_or_404(StartupInfo, user_id=request.user.id)
-      form = Startup_profileForm(request.POST,instance=obj)
+      form = Startup_profileForm(
+          request.POST, request.FILES, instance=obj)
     elif request.user.is_investor:
       obj = get_object_or_404(Investorinfo, user_id=request.user.id)
-      form = Investor_profileForm(request.POST, instance=obj)
+      form = Investor_profileForm(request.POST,request.FILES, instance=obj)
     elif request.user.is_customer:
       obj = get_object_or_404(CustomerInfo, user_id=request.user.id)
-      form = Customer_profileForm(request.POST, instance=obj)
+      form = Customer_profileForm(request.POST, request.FILES, instance=obj)
     if form.is_valid():
+      messages.success(request, "Profile Updated successfully!!!")
       form.save()
-      if request.user.is_startup:
-        startup = StartupInfo.objects.get(user_id=request.user.id)
-        return render(request, 'app/startup_profile.html', {'startup': startup})
-      elif request.user.is_investor:
-        investor = Investorinfo.objects.get(user_id=request.user.id)
-        return render(request, 'app/investor_profile.html', {'investor': investor})
-      elif request.user.is_customer:
-        customer = CustomerInfo.objects.get(user_id=request.user.id)
-        return render(request, 'app/customer_profile.html', {'customer': customer})
-        # messages.success(request, "Profile Updated successfully!!!")
+      # if request.user.is_startup:
+      #   startup = StartupInfo.objects.get(user_id=request.user.id)
+      #   return render(request, 'app/startup_profile.html', {'startup': startup})
+      # elif request.user.is_investor:
+      #   investor = Investorinfo.objects.get(user_id=request.user.id)
+      #   return render(request, 'app/investor_profile.html', {'investor': investor})
+      # elif request.user.is_customer:
+      #   customer = CustomerInfo.objects.get(user_id=request.user.id)
+      #   return render(request, 'app/customer_profile.html', {'customer': customer})
+        
   else:
     if request.user.is_startup:
       form = Startup_profileForm()
