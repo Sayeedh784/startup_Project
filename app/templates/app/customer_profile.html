@@ -24,7 +24,7 @@
           {% if customer.user.id == request.user.id %}
           <div class="col-md-4 text-center">
             <div class="flex-row">
-              <a href="{% url 'user-profile' user.id %}" class="btn" style="background-color: #FF4D3B; color: white;">Update Profile</a>
+              <a href="{% url 'user-form' user.id %}" class="btn" style="background-color: #FF4D3B; color: white;">Update Profile</a>
             </div>
           </div>
           {% elif request.user.is_authenticated %}

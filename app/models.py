@@ -1,3 +1,4 @@
+from email.policy import default
 from statistics import mode
 from tkinter.tix import Tree
 from django.db import models
@@ -157,7 +158,7 @@ class CustomerInfo(models.Model):
   profession = models.CharField(max_length=50,blank=True,null=True)
   looking_at = models.CharField(choices=LOOK_CHOICES, max_length=100, null=True, blank=True)
   sector = models.CharField(max_length=100, choices=SECTOR,blank=True, null=True)
-  image = models.ImageField(upload_to='images/',null=True,blank=True)
+  image = models.ImageField(default="images/images.png" ,upload_to='images/',null=True,blank=True)
   facebook_link = models.URLField(blank=True)
   linkedin_link = models.URLField(blank=True)
   twitter_link = models.URLField(blank=True)

@@ -45,8 +45,10 @@ def home(request):
 
 def about(request):
   return render(request,'app/about.html')
+
 def pricing(request):
   return render(request, 'app/pricing_table.html')
+
 def register(request):
     return render(request, 'app/register.html')
 
@@ -111,8 +113,7 @@ def userProfileForm(request,pk):
   if request.method == "POST":
     if request.user.is_startup:
       obj = get_object_or_404(StartupInfo, user_id=request.user.id)
-      form = Startup_profileForm(
-          request.POST, request.FILES, instance=obj)
+      form = Startup_profileForm(request.POST, request.FILES, instance=obj)
     elif request.user.is_investor:
       obj = get_object_or_404(Investorinfo, user_id=request.user.id)
       form = Investor_profileForm(request.POST,request.FILES, instance=obj)

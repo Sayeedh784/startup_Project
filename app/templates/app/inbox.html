@@ -16,7 +16,11 @@
 
 
 <div class="card shadow col-md-6" style="background-color:#2F3D50;">
-  <h3 style="color: white;">Previous Message</h3>
+  {% if threads %}
+  <center><h3 style="color: white;">Previous Messages</h3></center>
+  {% else %}
+  <center><h3 style="color: white;">No Messages</h3></center>
+  {% endif %}
   {% for thread in threads.all %}
     
     <div class="card p-3 shadow-sm my-2">
