@@ -192,9 +192,13 @@
           {% for startup in startups %}
           <a href="{% url 'startup-profile' startup.id %}" class="btn">
             <div class="item">
-                  <img src="{{ startup.logo.url }}" alt="" height="100px">
-                  <span class="fw-bold">{{startup.company_name}}</span><br>
-                  <span class="fs-5">{{startup.sector}}</span>
+              {% if startup.logo %}
+              <img src="{{ startup.logo.url }}" alt="no image" height="100px">
+              {% else %}
+              <img src="{% static 'app/images/banner1/images.png' %}" alt="" height="100px>
+              {% endif %}
+              <span class="fw-bold">{{startup.company_name}}</span><br>
+              <span class="fs-5">{{startup.sector}}</span>
             </div>
           </a>
           {% endfor %}

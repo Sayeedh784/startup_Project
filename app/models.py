@@ -1,8 +1,7 @@
-from email.policy import default
-from statistics import mode
-from tkinter.tix import Tree
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
 from multiselectfield import MultiSelectField
 
 class User(AbstractUser):
@@ -83,7 +82,7 @@ MODEL_CHOICES = (
 )
 class Investorinfo(models.Model):
   
-  user = models.ForeignKey(User, on_delete = models.CASCADE)
+  user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   name = models.CharField(max_length=100, null=True, blank=True)
   company_name = models.CharField(max_length=100, null=True, blank=True)
   title = models.CharField(max_length=100,blank=True,null = True)
@@ -112,17 +111,20 @@ class Investorinfo(models.Model):
       upload_to='images/', null=True, blank=True)
   def __str__(self):
     return str(self.id)
+  
+  def get_absolute_url(self):
+    return reverse('investor-profile', args=[str(self.id)])
 
 
 
 class StartupInfo(models.Model):
-  user = models.ForeignKey(User, on_delete = models.CASCADE)
+  user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
   name = models.CharField(max_length=100, null=True, blank=True)
   company_name = models.CharField(max_length=100, null=True, blank=True)
   title = models.CharField(max_length=100,blank=True,null=True)
   email = models.EmailField(max_length=100, null=True, blank=True)
   mobile = models.CharField(max_length=50, null=True, blank=True)
-  logo = models.ImageField(upload_to='images/',null=True,blank=True)
+  logo = models.ImageField(upload_to='images/', null=True,blank=True)
   establish_year = models.IntegerField(blank=True, null=True)
   business_model = models.CharField(max_length=100, choices=MODEL_CHOICES, blank=True,null=True)
   employee_range = models.CharField(max_length=100, blank=True, null=True)
@@ -138,8 +140,7 @@ class StartupInfo(models.Model):
   location = models.CharField(max_length=100, null=True, blank=True)
   person1= models.CharField(max_length=100,choices=ROLE,blank=True,null=True)
   person1_name = models.CharField(max_length=50, blank=True, null=True)
-  person1_image = models.ImageField(
-      upload_to='images/', null=True, blank=True)
+  person1_image = models.ImageField(upload_to='images/', null=True, blank=True)
   person2 = models.CharField(max_length=100, choices=ROLE, blank=True, null=True)
   person2_name = models.CharField(max_length=50, blank=True, null=True)
   person2_image = models.ImageField(upload_to='images/', null=True, blank=True)
@@ -147,10 +148,13 @@ class StartupInfo(models.Model):
   def __str__(self):
     return str(self.id)
 
+  def get_absolute_url(self):
+    return reverse('startup-profile', args=[str(self.id)])
+
 
 
 class CustomerInfo(models.Model):
-  user = models.ForeignKey(User, on_delete = models.CASCADE)
+  user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   name = models.CharField(max_length=100)
   biography=models.TextField(max_length=500,blank=True,null=True)
   email = models.EmailField(max_length=100, blank=True, null=True)
@@ -158,12 +162,15 @@ class CustomerInfo(models.Model):
   profession = models.CharField(max_length=50,blank=True,null=True)
   looking_at = models.CharField(choices=LOOK_CHOICES, max_length=100, null=True, blank=True)
   sector = models.CharField(max_length=100, choices=SECTOR,blank=True, null=True)
-  image = models.ImageField(default="images/images.png" ,upload_to='images/',null=True,blank=True)
+  image = models.ImageField(upload_to='images/',null=True,blank=True)
   facebook_link = models.URLField(blank=True)
   linkedin_link = models.URLField(blank=True)
   twitter_link = models.URLField(blank=True)
   def __str__(self):
     return str(self.id)
+
+  def get_absolute_url(self):
+    return reverse('customer_profile', args=[str(self.id)])
   
 class ReviewRating(models.Model):
     startup = models.ForeignKey(StartupInfo, on_delete=models.CASCADE)

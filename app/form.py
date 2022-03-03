@@ -1,3 +1,4 @@
+from logging import PlaceHolder
 from django.utils.translation import gettext, gettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
@@ -103,6 +104,7 @@ class MySetPasswordForm(SetPasswordForm):
 
 
 class Startup_profileForm(forms.ModelForm):
+    market_presence = forms.MultipleChoiceField(choices=CITY_CHOICES)
     class Meta:
         model = StartupInfo
         fields = ['name', 'company_name','title','email','mobile','logo','establish_year','business_model','employee_range',
@@ -132,7 +134,7 @@ class Investor_ReviewForm(forms.ModelForm):
 
 
 class ThreadForm(forms.Form):
-    username = forms.CharField(label='', max_length=100)
+    username = forms.CharField(label='', max_length=100,)
 
 
 class MessageForm(forms.Form):
