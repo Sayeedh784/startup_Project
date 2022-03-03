@@ -1,8 +1,7 @@
 from django.forms import fields, forms
 import django_filters
 from .models import *
-from django.forms import fields, widgets
-from django.utils.translation import gettext, gettext_lazy as _
+
 
 class StartupFilter(django_filters.FilterSet):
   class Meta:

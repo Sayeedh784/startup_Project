@@ -3,13 +3,17 @@
 {% block title %}Investor Profile{% endblock title %}
 
 {% block main-content %}
-<div class="container my-5">
+<div class="container my-5" >
   <div class="row">
     <div class="col-md-12">
       <div class="card flex-row  mt-5" style="border: none;">
         <div class="card-body row px-2 align-items-center">
           <div class="col-md-3">
+            {% if investor.logo %}
             <img src="{{ investor.logo.url }}" width="100%" height="auto" alt="No images">
+            {% else %}
+            <img src="{% static 'app/images/banner1/images.png' %}" width="100%" height="auto" alt="">
+            {% endif %}
           </div>
           <div class="col-md-5">
             <h4 class="card-title">
@@ -23,13 +27,13 @@
           {% if investor.user.id == request.user.id %}
           <div class="col-md-4 text-center">
             <div class="flex-row">
-              <a href="{% url 'user-form' user.id %}" class="btn btn-lg" style="background-color: #FF4D3B; color: white;">Update Profile</a>
+              <a href="{% url 'investor-form' investor.id %}" class="btn btn-lg" style="background-color: #FF4D3B; color: white;">Update Profile</a>
             </div>
           </div>
           {% elif request.user.is_authenticated %}
           <div class="col-md-4 text-center">
             <div class="flex-row">
-              <a href="{% url 'thread' user.id %}" class="btn btn-lg" style="background-color: #FF4D3B; color: white;">Connect</a>
+              <a href="{% url 'create-thread'  %}" class="btn btn-lg" style="background-color: #FF4D3B; color: white;">Connect</a>
             </div>
           </div>
           
@@ -55,6 +59,14 @@
       <div class="card ">
         <div class="card-header" style="background-color: #2F3D50; color: white;" color: white;"><b> General Information</b></div>
         <div class="card-body ">
+          <div class="row">
+            <div class="col-4 text-muted">
+              <p><b> Username:</b></p>
+            </div>
+            <div class="col-6">
+              <p><b> {{investor.user.username}}</b></p>
+            </div>
+          </div>
           <div class="row">
             <div class="col-4 text-muted">
               <p><b> Establish year:</b></p>
@@ -196,7 +208,11 @@
   <div class="row align-items-center justify-content-center">
     <div class="col-md-4">
       <div class="card" id="card">
+        {% if investor.person1_image %}
   <img src="{{ investor.person1_image.url }}" alt="John" style="width:100%; height: 200px;">
+  {% else %}
+  <img src="{% static 'app/images/banner1/images.png' %}" alt="" style="width:100%; height: 200px;">
+  {% endif %}
   <h2>{{investor.person1_name}}</h2>
   <p class="title" id="title">{{investor.person1}}</p>
   
@@ -206,7 +222,11 @@
 
     <div class="col-md-4">
       <div class="card" id="card">
-  <img src="{{ investor.person2_image.url }}" height="50%" alt="John" style="width:100%; height: 200px;">
+        {% if investor.person2_image %}
+        <img src="{{ investor.person2_image.url }}" height="50%" alt="John" style="width:100%; height: 200px;">
+        {% else %}
+         <img src="{% static 'app/images/banner1/images.png' %}" alt="" style="width:100%; height: 200px;">
+        {% endif %}
   <h2>{{investor.person2_name}}</h2>
   <p class="title" id="title">{{investor.person2}}</p>
   

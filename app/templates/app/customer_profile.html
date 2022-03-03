@@ -4,7 +4,7 @@
 
 {% block main-content %}
 
-<div class="container my-5" style="padding: 40px;">
+<div class="container my-5" style="padding-top: 40px;">
   <div class="row">
     <div class="col-md-12">
       <div class="card flex-row  mt-5" style="border: none;">
@@ -24,13 +24,13 @@
           {% if customer.user.id == request.user.id %}
           <div class="col-md-4 text-center">
             <div class="flex-row">
-              <a href="{% url 'user-form' user.id %}" class="btn" style="background-color: #FF4D3B; color: white;">Update Profile</a>
+              <a href="{% url 'customer-form' customer.id %}" class="btn" style="background-color: #FF4D3B; color: white;">Update Profile</a>
             </div>
           </div>
           {% elif request.user.is_authenticated %}
           <div class="col-md-4 text-center">
             <div class="flex-row">
-              <a href="#" class="btn" style="background-color: #FF4D3B; color: white;">Connect</a>
+              <a href="{% url 'create-thread' %}" class="btn" style="background-color: #FF4D3B; color: white;">Connect</a>
             </div>
           </div>
           
@@ -89,12 +89,20 @@
 </style>
 
 
-<div class="container">
+<div class="container mb-5">
   <div class="row">
     <div class="col-md-9">
       <div class="card ">
-        <div class="card-header"><b> General Interests</b></div>
+        <div class="card-header" style="background-color: #2F3D50; color: white;" color: white;"><b> General Interests</b></div>
         <div class="card-body">
+          <div class="row">
+            <div class="col-4 text-muted">
+              <p><b> Username:</b></p>
+            </div>
+            <div class="col-6">
+              <p><b> {{customer.user.username}}</b></p>
+            </div>
+          </div>
           <div class="row">
             <div class="col-4 text-muted">
               <p><b> Looking at:</b></p>
@@ -126,8 +134,8 @@
     </div>
     <div class="col-md-3">
       <div class="card">
-        <div class="card-header">
-          <h3>Contact Details</h3>
+        <div class="card-header" style="background-color: #2F3D50; color: white;" color: white;">
+          <b>Contact Details</b>
         </div>
         <div class="card-body">
           <p><i style="font-size:24px" class="fa me-1">&#xf095;</i> {{customer.mobile}}</p>
