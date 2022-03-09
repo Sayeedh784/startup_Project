@@ -1,9 +1,8 @@
 from itertools import chain
 from django.db.models import Q
 from django.http import HttpResponse, request
-from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import login, logout,authenticate
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404,redirect, render
 from django.contrib import messages
 from django.template import context
 from django.views import View
