@@ -109,6 +109,7 @@ class Investorinfo(models.Model):
   person2_name = models.CharField(max_length=50, blank=True, null=True)
   person2_image = models.ImageField(
       upload_to='images/', null=True, blank=True)
+      
   def __str__(self):
     return str(self.id)
   

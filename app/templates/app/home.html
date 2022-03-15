@@ -83,31 +83,6 @@
 
 {% block main-content %} 
 
-<div id="count2" class="container">
-  <div class="row">
-    <div class="col-md-1"></div>
-    <div style="align-items: center;" class="col-md-10">
-      <div id="total_card" style="background-color: #2F3D50;color: white;" class="card shadow p-3">
-        <div class="card-body row">
-          <div class="col-md-4 text-center" id="total">
-            <h4>{{total_startup}}+</h4>
-            <h4>Startups</h4>
-          </div>
-          <div class="col-md-4 text-center" id="total">
-            <h4>{{total_investor}}+</h4>
-            <h4>Investors</h4>
-          </div>
-          <div class="col-md-4 text-center" id="total">
-            <h4>{{total_customer}}+</h4>
-            <h4>Customers</h4>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <div class="col-md-1"></div>
-  </div>
-</div>
 
 <br><br><br>
 <style>
@@ -119,6 +94,8 @@
     color: white;
   }
 </style>
+
+
 <div class="container">
   <h1>what the Network offer</h1>
   <br />
@@ -174,6 +151,32 @@
 </div>
 </div>
 <br><br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 my-auto">
+      <div class="card py-3" style="background-color: #2F3D50;color: white;">
+        <div class="row">
+          <div class="col-md-4 text-center">
+            <h2>{{total_startup}}+</h2>
+            <h3>Startups</h3>
+          </div>
+          <div class="col-md-4 text-center">
+            <h2>{{total_investor}}+</h2>
+            <h3>Investors</h3>
+          </div>
+          <div class="col-md-4 text-center">
+            <h2>{{total_customer}}+</h2>
+            <h3>Customers</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <img style="width: 100%; height: auto;" src="{% static 'app/images/banner/Startup-Hub.jpg' %}" alt="">
+    </div>
+  </div>
+</div>
+<br>br
 <div class="container-fluid">
   <img style="width: 100%;" src="{% static 'app/images/banner1/cover4.jpg' %}"  alt=""> 
 
