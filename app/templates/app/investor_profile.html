@@ -161,85 +161,8 @@
 <br><br>
 
 <style>
- #card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 300px;
-  margin: auto;
-  text-align: center;
-  font-family: arial;
-}
-
-#title {
-  color: grey;
-  font-size: 18px;
-}
-
-#button {
-  border: none;
-  outline: 0;
-  display: inline-block;
-  padding: 8px;
-  color: white;
-  background-color: #000;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  font-size: 18px;
-}
-
-#link {
-  text-decoration: none;
-  font-size: 15px;
-  color: black;
-}
-
-#button:hover, link:hover {
-  opacity: 0.7;
-}
-</style>
-
-<div class="container">
-  <div class="card">
-    <div class="col-md-12">
-      <div class="card-header" style="background-color: #2F3D50; color: white;" color: white;">
-        <center><h3>Team</h3></center>
- </div>
-  <br>
-  <div class="row align-items-center justify-content-center">
-    <div class="col-md-4">
-      <div class="card" id="card">
-        {% if investor.person1_image %}
-  <img src="{{ investor.person1_image.url }}" alt="John" style="width:100%; height: 200px;">
-  {% else %}
-  <img src="{% static 'app/images/banner1/images.png' %}" alt="" style="width:100%; height: 200px;">
-  {% endif %}
-  <h2>{{investor.person1_name}}</h2>
-  <p class="title" id="title">{{investor.person1}}</p>
-  
-  
-</div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card" id="card">
-        {% if investor.person2_image %}
-        <img src="{{ investor.person2_image.url }}" height="50%" alt="John" style="width:100%; height: 200px;">
-        {% else %}
-         <img src="{% static 'app/images/banner1/images.png' %}" alt="" style="width:100%; height: 200px;">
-        {% endif %}
-  <h2>{{investor.person2_name}}</h2>
-  <p class="title" id="title">{{investor.person2}}</p>
-  
-</div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-<br><br>
-<style>
   .checked {
-    color: orange;
+    color: #FF4D3B;
   }
 
   .txt-center {
@@ -287,21 +210,61 @@
     content: "\2605";
     position: absolute;
     left: 0;
-    color: orange;
+    color: #FF4D3B;
   }
 </style>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <div class="card">
-        <div class="card-header" style="background-color: #2F3D50; color: white;" color: white;">
+
+      <div class="card-header" style="background-color: #2F3D50; color: white;">
+        <center>
           <h3>Reviews</h3>
-        </div>
+        </center>
       </div>
       <br>
+
     </div>
   </div>
 </div>
+{% if investor.user.pk == request.user.pk %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-6">
+      <h4>Total Reviews({{count}})</h4>
+      <hr>
+      {% for review in reviews %}
+      <div class="row">
+        <div class="col-md-6">
+
+          <div>
+            <i class="fas fa-user-alt me-1"></i>
+            {{review.user.username}}
+            <i class="far fa-clock me-1"></i>
+            {{review.created_at}}
+          </div>
+        </div>
+        <div class="col-md-6 text-end">
+          <i class="fa fa-star {% if review.rating > 0 %} checked {% endif %}" style="float: left;"></i>
+          <i class="fa fa-star {% if review.rating > 1 %} checked {% endif %}" style="float: left;"></i>
+          <i class="fa fa-star {% if review.rating > 2 %} checked {% endif %}" style="float: left;"></i>
+          <i class="fa fa-star {% if review.rating > 3 %} checked {% endif %}" style="float: left;"></i>
+          <i class="fa fa-star {% if review.rating > 4 %} checked {% endif %}" style="float: left;"></i>
+        </div>
+        <br>
+        <div>
+          {{review.review}}
+        </div>
+
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% else %}
 <div class="container">
   <div class="row">
     <div class="col-md-6">
@@ -336,8 +299,19 @@
           </div>
         </div>
         <br>
+        <style>
+          #btn:hover {
+            border: #FF4D3B solid 1px;
+
+          }
+
+          #btn {
+            background-color: #FF4D3B;
+            color: white;
+          }
+        </style>
         {% if user.is_authenticated %}
-        <button class="btn" type="submit" style="background-color: #FF4D3B; color: white;">Post Review</button>
+        <button class="btn" type="submit" id="btn">Submit Review</button>
         {% else %}
         <p>You must be login for review.<span><a style="text-decoration: none;"
               href="{% url 'login' %}">login</a></span></p>
@@ -350,7 +324,7 @@
       <hr>
       {% for review in reviews %}
       <div class="row">
-        <div class="col-md-6 text-muted">
+        <div class="col-md-6">
 
           <div>
             <i class="fas fa-user-alt me-1"></i>
@@ -359,7 +333,6 @@
             {{review.created_at}}
           </div>
         </div>
-        <br>
         <div class="col-md-6 text-end">
           <i class="fa fa-star {% if review.rating > 0 %} checked {% endif %}" style="float: left;"></i>
           <i class="fa fa-star {% if review.rating > 1 %} checked {% endif %}" style="float: left;"></i>
@@ -378,7 +351,8 @@
   </div>
   <hr>
 </div>
+{% endif %}
 
-<br>
+<br><br><br>
 {% endblock main-content %}
 

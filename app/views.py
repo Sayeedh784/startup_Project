@@ -52,7 +52,7 @@ def pricing(request):
   return render(request, 'app/pricing_table.html')
 
 def register(request):
-    return render(request, 'app/register.html')
+  return render(request, 'app/register.html')
 
 
 class customer_register(View):
@@ -181,13 +181,16 @@ class CustomerUpdateView(LoginRequiredMixin, UpdateView):
 
   
 def profile(request,pk):
-  
   if request.user.is_startup:
     startup = StartupInfo.objects.get(user_id=request.user.id)
-    return render(request, 'app/startup_profile.html', {'startup': startup})
+    reviews = ReviewRating.objects.filter(startup_id=startup.id, status=True)
+    count = reviews.count()
+    return render(request, 'app/startup_profile.html', {'startup': startup, 'reviews': reviews,  'count': count})
   elif request.user.is_investor:
     investor = Investorinfo.objects.get(user_id=request.user.id)
-    return render(request, 'app/investor_profile.html', {'investor': investor})
+    reviews = InvestorReviewRating.objects.filter(investor_id=investor.id, status=True)
+    count = reviews.count()
+    return render(request, 'app/investor_profile.html', {'investor': investor, 'reviews': reviews,'count':count})
   elif request.user.is_customer:
     customer = CustomerInfo.objects.get(user_id=request.user.id)
     return render(request, 'app/customer_profile.html', {'customer': customer})
