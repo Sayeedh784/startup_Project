@@ -316,6 +316,19 @@ class FollowNotification(View):
     notification.save()
     return redirect('profile' ,pk=profile_pk)
 
+class ThreadNotification(View):
+  def get(self,request,notification_pk,object_pk,*args,**kwargs):
+    notification = Notification.objects.get(pk=notification_pk)
+    if request.user.is_startup:
+      thread = ThreadModel.objects.get(pk=object_pk)
+    elif request.user.is_investor:
+      thread = ThreadModel.objects.get(pk=object_pk)
+    elif request.user.is_customer:
+      thread = ThreadModel.objects.get(pk=object_pk)
+    notification.user_has_seen = True
+    notification.save()
+    return redirect('thread', pk=object_pk)
+
 class RemoveNotification(View):
   def delete(self, request, notification_pk, profile_pk, *args, **kwargs):
     notification = Notification.objects.get(pk=notification_pk)
@@ -404,5 +417,10 @@ class CreateMessage(View):
         )
 
         message.save()
-
+        notification = Notification.objects.create(
+          notification_type=4,
+          from_user = request.user,
+          to_user= receiver,
+          thread=thread
+        )
         return redirect('thread', pk=pk)

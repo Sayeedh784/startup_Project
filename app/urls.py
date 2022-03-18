@@ -33,6 +33,8 @@ urlpatterns = [
     path('inbox/create-thread/', CreateThread.as_view(), name='create-thread'),
     path('inbox/<int:pk>/', ThreadView.as_view(), name='thread'),
     path('inbox/<int:pk>/create-message/',CreateMessage.as_view(), name='create-message'),
+    path('notifiaction/<int:notification_pk>/thread/<int:object_pk>/',views.ThreadNotification.as_view(),name="thread_notification"),
+
 
     path('login/',views.login_request, name='login'),
     path('logout/',views.logout_view, name='logout'),
