@@ -1,13 +1,15 @@
 from itertools import chain
 from django.db.models import Q
 from django.http import HttpResponse, request
-from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import login, logout,authenticate
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404,redirect, render
 from django.contrib import messages
 from django.template import context
 from django.views import View
 from django.views.generic import CreateView,ListView
+from django.views.generic.edit import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from .form import *
 from django.contrib.auth.forms import AuthenticationForm
 from .models import User
@@ -15,7 +17,7 @@ from app.models import *
 from .filters import *
 from .import form
 from django.core.paginator import Paginator
-
+from multiselectfield import MultiSelectField,MultiSelectFormField
 
 def search_list(request):
   if request.method == 'POST':
@@ -50,7 +52,7 @@ def pricing(request):
   return render(request, 'app/pricing_table.html')
 
 def register(request):
-    return render(request, 'app/register.html')
+  return render(request, 'app/register.html')
 
 
 class customer_register(View):
@@ -109,49 +111,86 @@ def logout_view(request):
     logout(request)
     return redirect('/login')
 
-def userProfileForm(request,pk):
-  if request.method == "POST":
-    if request.user.is_startup:
-      obj = get_object_or_404(StartupInfo, user_id=request.user.id)
-      form = Startup_profileForm(request.POST, request.FILES, instance=obj)
-    elif request.user.is_investor:
-      obj = get_object_or_404(Investorinfo, user_id=request.user.id)
-      form = Investor_profileForm(request.POST,request.FILES, instance=obj)
-    elif request.user.is_customer:
-      obj = get_object_or_404(CustomerInfo, user_id=request.user.id)
-      form = Customer_profileForm(request.POST, request.FILES, instance=obj)
-    if form.is_valid():
-      messages.success(request, "Profile Updated successfully!!!")
-      form.save()
-      # if request.user.is_startup:
-      #   startup = StartupInfo.objects.get(user_id=request.user.id)
-      #   return render(request, 'app/startup_profile.html', {'startup': startup})
-      # elif request.user.is_investor:
-      #   investor = Investorinfo.objects.get(user_id=request.user.id)
-      #   return render(request, 'app/investor_profile.html', {'investor': investor})
-      # elif request.user.is_customer:
-      #   customer = CustomerInfo.objects.get(user_id=request.user.id)
-      #   return render(request, 'app/customer_profile.html', {'customer': customer})
+# def userProfileForm(request,pk):
+#   if request.method == "POST":
+#     if request.user.is_startup:
+#       obj = get_object_or_404(StartupInfo, user_id=request.user.id)
+#       form = Startup_profileForm(request.POST, request.FILES, instance=obj)
+#     elif request.user.is_investor:
+#       obj = get_object_or_404(Investorinfo, user_id=request.user.id)
+#       form = Investor_profileForm(request.POST,request.FILES, instance=obj)
+#     elif request.user.is_customer:
+#       obj = get_object_or_404(CustomerInfo, user_id=request.user.id)
+#       form = Customer_profileForm(request.POST, request.FILES, instance=obj)
+#     if form.is_valid():
+#       messages.success(request, "Profile Updated successfully!!!")
+#       form.save()
         
-  else:
-    if request.user.is_startup:
-      form = Startup_profileForm()
-    elif request.user.is_investor:
-      form = Investor_profileForm()
-    elif request.user.is_customer:
-      form = Customer_profileForm()
-  context={'form':form}
+#   else:
+#     if request.user.is_startup:
+#       form = Startup_profileForm()
+#     elif request.user.is_investor:
+#       form = Investor_profileForm()
+#     elif request.user.is_customer:
+#       form = Customer_profileForm()
+#   context={'form':form}
   
-  return render(request,'app/user_profileForm.html',context)
+#   return render(request,'app/user_profileForm.html',context)
+
+
+class StartUpdateView(LoginRequiredMixin, UpdateView):
+  model = StartupInfo
+  fields = ('name', 'company_name', 'title', 'email', 'mobile', 'logo', 'establish_year', 'business_model', 'employee_range',
+            'market_presence', 'looking_at', 'sector', 'description', 'videofile', 'weblink', 'facebook_link', 'linkedin_link', 'twitter_link', 'location',
+            'person1', 'person1_name', 'person1_image', 'person2', 'person2_name', 'person2_image')
+  
+  template_name = 'app/user_profileForm.html'
+  login_url = 'login'
+
+  def dispatch(self, request, *args, **kwargs):
+    obj = self.get_object()
+    if obj.user != self.request.user:
+      raise PermissionDenied
+    return super().dispatch(request, *args, **kwargs)
+
+class InvestorUpdateView(LoginRequiredMixin, UpdateView):
+  model = Investorinfo
+  fields = ('name', 'company_name', 'title', 'email', 'mobile', 'logo', 'establish_year', 'investor_type', 'employee_range',
+            'market_presence', 'looking_at', 'tags', 'description', 'videos', 'weblink', 'facebook_link', 'linkedin_link', 'twitter_link', 'location',
+            'person1', 'person1_name', 'person1_image', 'person2', 'person2_name', 'person2_image')
+  template_name = 'app/user_profileForm.html'
+  login_url = 'login'
+
+  def dispatch(self, request, *args, **kwargs):
+    obj = self.get_object()
+    if obj.user != self.request.user:
+      raise PermissionDenied
+    return super().dispatch(request, *args, **kwargs)
+class CustomerUpdateView(LoginRequiredMixin, UpdateView):
+  model = CustomerInfo
+  fields = ('name', 'mobile', 'email', 'profession', 'biography', 'looking_at',
+            'sector', 'image', 'facebook_link', 'linkedin_link', 'twitter_link')
+  template_name = 'app/user_profileForm.html'
+  login_url = 'login'
+
+  def dispatch(self, request, *args, **kwargs):
+    obj = self.get_object()
+    if obj.user != self.request.user:
+      raise PermissionDenied
+    return super().dispatch(request, *args, **kwargs)
+
   
 def profile(request,pk):
-  
   if request.user.is_startup:
     startup = StartupInfo.objects.get(user_id=request.user.id)
-    return render(request, 'app/startup_profile.html', {'startup': startup})
+    reviews = ReviewRating.objects.filter(startup_id=startup.id, status=True)
+    count = reviews.count()
+    return render(request, 'app/startup_profile.html', {'startup': startup, 'reviews': reviews,  'count': count})
   elif request.user.is_investor:
     investor = Investorinfo.objects.get(user_id=request.user.id)
-    return render(request, 'app/investor_profile.html', {'investor': investor})
+    reviews = InvestorReviewRating.objects.filter(investor_id=investor.id, status=True)
+    count = reviews.count()
+    return render(request, 'app/investor_profile.html', {'investor': investor, 'reviews': reviews,'count':count})
   elif request.user.is_customer:
     customer = CustomerInfo.objects.get(user_id=request.user.id)
     return render(request, 'app/customer_profile.html', {'customer': customer})
