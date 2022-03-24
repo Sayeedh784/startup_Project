@@ -18,11 +18,7 @@
 
   <!--Custom CSS-->
   
-  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css">
-
-
-
 
   <title>StartupBD | {% block title %} {% endblock title %} </title>
 </head>
@@ -74,7 +70,7 @@
       
             <form class="d-flex input-group w-auto" method="POST" action="{% url 'search_list' %}">
               {% csrf_token %}
-              <input type="search" class="form-control rounded" name="q" placeholder="Search Here" aria-label="Search"
+              <input type="search" class="form-control rounded" name="q" placeholder="Search" aria-label="Search"
                 aria-describedby="search-addon" />
              <button type="submit" class="btn" style="background-color:#FF4D3B;"><i class="fas fa-search" style="color: white;"></i></button>
             </form>
@@ -93,15 +89,18 @@
       
                   </ul>
                 </li>
-      
-                <li class="nav-item ml-2">
-                  <a href="{% url 'inbox' %}" class="nav-link"><i class="far fa-comment-alt "></i></a>
-                  
-                </li>
-                <li class="nav-item">
-               
-                  {% show_notifications %}
                 
+                <li class="nav-item mx-2">
+                  <a href="{% url 'inbox' %}" class="nav-link"><i class="far fa-comment-alt "></i></a>
+                  {% if messages %}
+                  <div class="row justify-content-center pt-3">
+                    <div class="col-md-6">
+                      {% for message in messages %}
+                      <div class="alert alert-primary" role="alert">{{message}}</div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  {% endif %}
                 </li>
                 <li class="nav-item mx-2">
                   <a href="{% url 'logout' %}" class="nav-link">Logout</a>
