@@ -201,7 +201,8 @@ class Notification(models.Model):
   notification_type = models.IntegerField()
   to_user = models.ForeignKey(User,related_name='notification_to',on_delete=models.CASCADE,null=True)
   from_user = models.ForeignKey(User,related_name='notification_from',on_delete=models.CASCADE,null=True)
-  thread = models.ForeignKey('ThreadModel', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
+  thread = models.ForeignKey(
+      'ThreadModel', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
   date = models.DateTimeField(auto_now_add=True)
   user_has_seen = models.BooleanField(default=False)
 

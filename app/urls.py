@@ -34,6 +34,12 @@ urlpatterns = [
     path('inbox/<int:pk>/', ThreadView.as_view(), name='thread'),
     path('inbox/<int:pk>/create-message/',CreateMessage.as_view(), name='create-message'),
 
+    path('notification/<int:notification_pk>/profile/<int:profile_pk>',views.FollowNotification.as_view(),name="folllow-notification"),
+    path('notification/<int:notification_pk>/thread/<int:object_pk>',
+         ThreadNotification.as_view(), name='thread-notification'),
+    path('notification/delete/<int:notification_pk>',
+         RemoveNotification.as_view(), name='notification-delete'),
+
     path('login/',views.login_request, name='login'),
     path('logout/',views.logout_view, name='logout'),
     path('passwordchange/', auth_views.PasswordChangeView.as_view(template_name='app/passwordchange.html',form_class=MyPasswordChangeForm,

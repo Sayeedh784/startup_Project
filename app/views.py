@@ -303,6 +303,28 @@ def investor_submit_review(request,investor_id):
           return redirect(url)
 
 
+class PostNotification(View):
+    def get(self, request, notification_pk, message_pk, *args, **kwargs):
+        notification = Notification.objects.get(pk=notification_pk)
+        message = MessageModel.objects.get(pk=message_pk)
+
+        notification.user_has_seen = True
+        notification.save()
+
+        return redirect('thread', pk=message_pk)
+
+
+class ThreadNotification(View):
+    def get(self, request, notification_pk, object_pk, *args, **kwargs):
+        notification = Notification.objects.get(pk=notification_pk)
+        thread = ThreadModel.objects.get(pk=object_pk)
+
+        notification.user_has_seen = True
+        notification.save()
+
+        return redirect('thread', pk=object_pk)
+
+
 class FollowNotification(View):
   def get(self,request,notification_pk,profile_pk,*args,**kwargs):
     notification = Notification.objects.get(pk=notification_pk)
@@ -404,5 +426,11 @@ class CreateMessage(View):
         )
 
         message.save()
+        notification = Notification.objects.create(
+          notification_type = 1,
+          from_user = request.user,
+          to_user = receiver,
+          thread= thread, 
+        )
 
         return redirect('thread', pk=pk)

@@ -27,3 +27,7 @@ class ThreadModelAdmin(admin.ModelAdmin):
 @admin.register(MessageModel)
 class MessageModelAdmin(admin.ModelAdmin):
   list_display=['id','sender_user','receiver_user','date']
+
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+  list_display=['id','from_user','to_user','date']

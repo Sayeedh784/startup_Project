@@ -1,5 +1,5 @@
 <!doctype html>
-
+{% load custom_tags %}
 <html lang="en">
 
 <head>
@@ -94,8 +94,14 @@
                   </ul>
                 </li>
       
-                <li class="nav-item mx-2">
+                <li class="nav-item ml-2">
                   <a href="{% url 'inbox' %}" class="nav-link"><i class="far fa-comment-alt "></i></a>
+                  
+                </li>
+                <li class="nav-item">
+               
+                  {% show_notifications %}
+                
                 </li>
                 <li class="nav-item mx-2">
                   <a href="{% url 'logout' %}" class="nav-link">Logout</a>
@@ -251,6 +257,7 @@
   <script src="{% static 'app/js/owl.carousel.min.js' %}"></script>
   <script src="{% static 'app/js/all.min.js' %}"></script>
   <script src="{% static 'app/js/myscript.js' %}"></script>
+  <script src="{% static 'app/js/notification.js' %}"></script>
 
 
 </body>

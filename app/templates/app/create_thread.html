@@ -21,6 +21,13 @@
   
     <div class="col-md-8 p-5">
       <h3>Start a Conversation!</h3>
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-danger">
+        {{ message }}
+      </div>
+      {% endfor %}
+      {% endif %}
       <form method="POST">
         {% csrf_token %}
         <p>Enter the username for the person you would like to talk to.</p>
