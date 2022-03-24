@@ -92,15 +92,14 @@
                 
                 <li class="nav-item mx-2">
                   <a href="{% url 'inbox' %}" class="nav-link"><i class="far fa-comment-alt "></i></a>
-                  {% if messages %}
-                  <div class="row justify-content-center pt-3">
-                    <div class="col-md-6">
-                      {% for message in messages %}
-                      <div class="alert alert-primary" role="alert">{{message}}</div>
-                      {% endfor %}
-                    </div>
+                 
+                </li>
+                <li class="nav-item">
+                  <div class="nav-item">
+                    {% show_notifications %}
+                   
                   </div>
-                  {% endif %}
+                 
                 </li>
                 <li class="nav-item mx-2">
                   <a href="{% url 'logout' %}" class="nav-link">Logout</a>
