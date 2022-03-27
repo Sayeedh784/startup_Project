@@ -58,7 +58,6 @@
   <span class="badge bg-primary notification-badge" onclick="showNotifications()">{{ notifications.count }}</span>
   <div class="dropdown-content d-none" id="notification-container">
     {% for notification in notifications %}
-
       {% if notification.thread %}
       {% if notification.notification_type == 1 %}
           <div class="dropdown-item-parent">
@@ -67,13 +66,7 @@
             <span class="dropdown-item-close"
               onclick="removeNotification(`{% url 'notification-delete' notification.pk %}`, `{{ request.path }}`)">&times;</span>
           </div>
-          {% else %}
-          <div class="dropdown-item-parent">
-            <a href="{% url 'follow-notification' notification.pk notification.from_user.profile.pk %}">@{{ notification.from_user
-              }} has started following you</a>
-            <span class="dropdown-item-close"
-              onclick="removeNotification(`{% url 'notification-delete' notification.pk %}`, `{{ request.path }}`)">&times;</span>
-          </div>
+      
           {% endif %}
           {% endif %}
           {% endfor %}

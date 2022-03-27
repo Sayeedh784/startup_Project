@@ -8,7 +8,6 @@ class User(AbstractUser):
   is_customer = models.BooleanField(default=False)
   is_investor = models.BooleanField(default=False)
   is_startup = models.BooleanField(default=False)
-  friends = models.ManyToManyField('User',blank=True)
 
 CITY_CHOICES = (
   ('Dhaka','Dhaka'),
