@@ -4,8 +4,6 @@
 {% load widget_tweaks %}
 {% block main-content %}
 
-
-
 <section>
   <div class="container my-5" style="padding: 50px;">
     <div class="row">
@@ -19,7 +17,7 @@
               {% if messages %}
               {% for message in messages %}
               <p {% if message.tags %} class="alert alert-{{message.tags}}
-            mb-5 {% endif %}">{{message}}</p>
+            mb-2 {% endif %}">{{message}}</p>
               {% endfor %}
               {% endif %}
               {% csrf_token %}
@@ -33,11 +31,15 @@
                 {% endfor %}
                 <br>
 
-               <small><a href="{% url 'password_reset' %}" style="text-decoration:none">Forget Password?</a></small><br>
-                <input type="submit" class="btn btn-primary mt-4" value="Login">
+                <small><a href="{% url 'password_reset' %}" style="text-decoration:none">Forgot
+                    Password?</a></small><br>
+                <div class="btn-styled">
+                  <input type="submit" class="btn mt-4" value="Login">
+                </div>
                 <br>
                 <div class="text-center text-primary fw-bold"><small>New
-                    to StartupBD? <a href="{% url 'register' %}" class="text-danger" style="text-decoration:none">Creat an Account</a></small>
+                    to StartupBD? <a href="{% url 'register' %}" class="text-danger" style="text-decoration:none">Create
+                      an Account</a></small>
                 </div>
               </div>
             </form>

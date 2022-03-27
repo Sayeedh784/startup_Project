@@ -1,4 +1,3 @@
-
 {% extends 'app/base.html' %}
 {% load static %}
 
@@ -14,9 +13,9 @@
         <div class="card-body row px-2 align-items-center">
           <div class="col-md-3">
             {% if startup.logo %}
-            <img src="{{ startup.logo.url }}" width="100%" height="200px" alt="No images">
+            <img src="{{ startup.logo.url }}" width="100%" height="280" alt="No images">
             {% else %}
-            <img src="{% static 'app/images/banner1/images.png' %}" width="100%" height="200px" alt="No Image">
+            <img src="{% static 'app/images/banner1/images.png' %}" width="100%" height="280px" alt="No Image">
             {% endif %}
           </div>
           <div class="col-md-5">
@@ -27,26 +26,29 @@
             <h3 class="text-muted">{{startup.title}}</h3>
             </p>
           </div>
-                    
+
           {% if startup.user.pk == request.user.pk %}
           <div class="col-md-4 text-center">
-            <div class="flex-row">
-              <a href="{% url 'startup-form' startup.id %}" class="btn btn-lg" style="background-color: #FF4D3B; color: white;">Update Profile</a>
+            <div class="flex-row btn-styled">
+              <a href="{% url 'startup-form' startup.id %}" class="btn btn-lg"
+                style="color: white;">Update Profile</a>
             </div>
           </div>
 
           {% elif request.user.is_authenticated %}
           <div class="col-md-4 text-center">
-            <div class="flex-row">
-              
-              <a href="{% url 'create-thread' %}" class="btn btn-lg" style="background-color: #FF4D3B; color: white;">Connect</a>
-              
+            <div class="flex-row btn-styled">
+
+              <a href="{% url 'create-thread' %}" class="btn btn-lg"
+                style="background-color: #FF4D3B; color: white;">Connect</a>
+
             </div>
           </div>
           {% else %}
           <div class="col-md-4 text-center">
-            <div class="flex-row">
-              <a href="{% url 'login' %}" class="btn btn-lg" style="background-color: #FF4D3B; color: white;">Login or signup to Connect</a>
+            <div class="flex-row btn-styled">
+              <a href="{% url 'login' %}" class="btn btn-lg" style="background-color: #FF4D3B; color: white;">Login or
+                signup to Connect</a>
             </div>
           </div>
           {% endif %}
@@ -161,11 +163,12 @@
           <br>
           <p><i style="font-size:24px" class="fa me-1">&#xf0e0;</i> {{startup.email}}</p>
           <br>
-          <p ><a href="{{startup.weblink}}" style="color: black; text-decoration: none;"><i style='font-size:24px' class='fas me-1'>&#xf0ac;</i> {{startup.weblink}}</a></p>
+          <p><a href="{{startup.weblink}}" style="color: black; text-decoration: none;"><i style='font-size:24px'
+                class='fas me-1'>&#xf0ac;</i> {{startup.weblink}}</a></p>
           <br>
-         <a href="{{startup.facebook_link}}" id="link"><i class="fab fa-facebook-square fa-2x"></i></a>  
-        <a class="mx-3"id="link" href="{{startup.linkedin_link}}"><i class="fab fa-linkedin fa-2x"></i></a> 
-        <a href="{{startup.twitter_link}}" id="link"><i class="fab fa-twitter-square fa-2x"></i></a>
+          <a href="{{startup.facebook_link}}" id="link"><i class="fab fa-facebook-square fa-2x"></i></a>
+          <a class="mx-3" id="link" href="{{startup.linkedin_link}}"><i class="fab fa-linkedin fa-2x"></i></a>
+          <a href="{{startup.twitter_link}}" id="link"><i class="fab fa-twitter-square fa-2x"></i></a>
         </div>
       </div>
     </div>
@@ -200,14 +203,7 @@
     font-size: 18px;
   }
 
-  #link {
-    text-decoration: none;
-    font-size: 15px;
-    color: black;
-  }
-
-  #button:hover,
-  link:hover {
+  #button:hover {
     opacity: 0.7;
   }
 </style>
@@ -220,18 +216,18 @@
           <h3>Team</h3>
         </center>
       </div>
-      
+
       <br>
-      <div class="row align-items-center justify-content-center">
+      <div class="row align-items-center justify-content-center pb-4">
         <div class="col-md-4">
           <div class="card" id="card">
             {% if startup.person1_image %}
-            <img src="{{ startup.person1_image.url  }}" alt="John" style="width:100%; height: 200px;">
+            <img src="{{ startup.person1_image.url  }}" alt="John" style="width:100%; height: 280px;">
             {% else %}
-            <img src="{% static 'app/images/banner1/images.png' %}" alt="No Image" style="width:100%; height: 200px;">
+            <img src="{% static 'app/images/banner1/images.png' %}" alt="No Image" style="width:100%; height: 280px;">
             {% endif %}
-            <h2>{{startup.person1_name}}</h2>
-            <p class="title" id="title">{{startup.person1}}</p>
+            <br> <h2>{{startup.person1_name}}</h2>
+            <p class="title p-2" id="title">{{startup.person1}}</p>
 
 
           </div>
@@ -240,12 +236,12 @@
         <div class="col-md-4">
           <div class="card" id="card">
             {% if startup.person2_image %}
-            <img src="{{ startup.person2_image.url }}"  alt="John" style="width:100%; height: 200px;">
-              {% else %}
-              <img src="{% static 'app/images/banner1/images.png' %}" alt="No Image" style="width:100%; height: 200px;">
-              {% endif %}
-            <h2>{{startup.person2_name}}</h2>
-            <p class="title" id="title">{{startup.person2}}</p>
+            <img src="{{ startup.person2_image.url }}" alt="John" style="width:100%; height: 280px;">
+            {% else %}
+            <img src="{% static 'app/images/banner1/images.png' %}" alt="No Image" style="width:100%; height: 280px;">
+            {% endif %}
+            <br> <h2>{{startup.person2_name}}</h2>
+            <p class="title p-2" id="title">{{startup.person2}}</p>
 
           </div>
         </div>
@@ -255,30 +251,32 @@
 </div>
 <br><br>
 <style>
-.checked{
-  color: #FF4D3B;
-}
-.txt-center {
-  text-align: center;
-}
-.hide {
-  display: none;
-}
+  .checked {
+    color: #FF4D3B;
+  }
 
-.clear {
-  float: none;
-  clear: both;
-}
+  .txt-center {
+    text-align: center;
+  }
 
-.rating {
+  .hide {
+    display: none;
+  }
+
+  .clear {
+    float: none;
+    clear: both;
+  }
+
+  .rating {
     width: 90px;
     unicode-bidi: bidi-override;
     direction: rtl;
     text-align: center;
     position: relative;
-}
+  }
 
-.rating > label {
+  .rating>label {
     float: right;
     display: inline;
     padding: 0;
@@ -287,127 +285,50 @@
     width: 1.1em;
     cursor: pointer;
     color: #000;
-}
+  }
 
-.rating > label:hover,
-.rating > label:hover ~ label,
-.rating > input.radio-btn:checked ~ label {
+  .rating>label:hover,
+  .rating>label:hover~label,
+  .rating>input.radio-btn:checked~label {
     color: transparent;
-}
+  }
 
-.rating > label:hover:before,
-.rating > label:hover ~ label:before,
-.rating > input.radio-btn:checked ~ label:before,
-.rating > input.radio-btn:checked ~ label:before {
+  .rating>label:hover:before,
+  .rating>label:hover~label:before,
+  .rating>input.radio-btn:checked~label:before,
+  .rating>input.radio-btn:checked~label:before {
     content: "\2605";
     position: absolute;
     left: 0;
     color: #FF4D3B;
-}
+  }
 </style>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      
-        <div class="card-header" style="background-color: #2F3D50; color: white;">
-          <center><h3>Reviews</h3></center>
-        </div>
-        <br>
-        
+
+      <div class="card-header" style="background-color: #2F3D50; color: white;">
+        <center>
+          <h3>Reviews</h3>
+        </center>
       </div>
+      <br>
+
     </div>
   </div>
+</div>
 {% if startup.user.pk == request.user.pk %}
-    <div class="container">
-      <div class="row">
-        <div class="col-md-1"></div>
-      
-        <div class="col-md-6">
-          <h4>Total Reviews({{count}})</h4>
-          <hr>
-          {% for review in reviews %}
-          <div class="row">
-            <div class="col-md-6">
-        
-              <div>
-                <i class="fas fa-user-alt me-1"></i>
-                {{review.user.username}}
-                <i class="far fa-clock me-1"></i>
-                {{review.created_at}}
-              </div>
-            </div>
-            <div class="col-md-6 text-end">
-              <i class="fa fa-star {% if review.rating > 0 %} checked {% endif %}" style="float: left;"></i>
-              <i class="fa fa-star {% if review.rating > 1 %} checked {% endif %}" style="float: left;"></i>
-              <i class="fa fa-star {% if review.rating > 2 %} checked {% endif %}" style="float: left;"></i>
-              <i class="fa fa-star {% if review.rating > 3 %} checked {% endif %}" style="float: left;"></i>
-              <i class="fa fa-star {% if review.rating > 4 %} checked {% endif %}" style="float: left;"></i>
-            </div>
-            <br>
-            <div>
-              {{review.review}}
-            </div>
-        
-          </div>
-          {% endfor %}
-        </div>
-       </div>
-      </div>
-    
-    {% else %}
-<div class="container">
+<div class="container mb-5">
   <div class="row">
-    <div class="col-md-6">
-      
-      <h4>write your review:</h4>
-      <form action="{% url 'submit_review' startup.id %}" class="review-form" method="POST">
-        {% csrf_token %}
-        
-        <input type="hidden" name="review" id="review" value="" />
-        
-      <div class="form-group">
-        <textarea class="form-control" name="review" id="exampleFormControlTextarea3" placeholder="Your Review" rows="6"></textarea>
-      </div>
-      <br>
-      <div class="form-group">
-        <div class="input rating">
-          <div>Your Rating</div><br>
-          <div class="rating">
-            <input id="star-1" name="rating" type="radio" value="5" class="radio-btn hide" /><label for="star-1"><i class="fas fa-star"></i></label>
-            <input id="star-2" name="rating" type="radio" value="4" class="radio-btn hide" /><label for="star-2"><i class="fas fa-star"></i></label>
-            <input id="star-3" name="rating" type="radio" value="3" class="radio-btn hide" /><label for="star-3"><i class="fas fa-star"></i></label>
-            <input id="star-4" name="rating" type="radio" value="2" class="radio-btn hide" /><label for="star-4"><i class="fas fa-star"></i></label>
-            <input id="star-5" name="rating" type="radio" value="1" class="radio-btn hide" /><label for="star-5"><i class="fas fa-star"></i></label>
-            <div class="clear"></div>
-          </div>
-        </div>
-      </div>
-      <br>
-      <style>
-        #btn:hover{
-          border: #FF4D3B solid 1px;
-          
-        }
-        #btn{
-          background-color: #FF4D3B;
-          color: white;
-        }
-      </style>
-      {% if user.is_authenticated %}
-      <button class="btn" type="submit" id="btn">Submit Review</button>
-      {% else %} 
-      <p>You must be login for review.<span><a style="text-decoration: none;" href="{% url 'login' %}">login</a></span></p>
-      {% endif %}
-    </form>
-    </div>
-  
+    <div class="col-md-1"></div>
+
     <div class="col-md-6">
       <h4>Total Reviews({{count}})</h4>
       <hr>
       {% for review in reviews %}
       <div class="row">
         <div class="col-md-6">
-          
+
           <div>
             <i class="fas fa-user-alt me-1"></i>
             {{review.user.username}}
@@ -416,25 +337,112 @@
           </div>
         </div>
         <div class="col-md-6 text-end">
-            <i class="fa fa-star {% if review.rating > 0 %} checked {% endif %}" style="float: left;"></i>
-            <i class="fa fa-star {% if review.rating > 1 %} checked {% endif %}" style="float: left;"></i>
-            <i class="fa fa-star {% if review.rating > 2 %} checked {% endif %}" style="float: left;"></i>
-            <i class="fa fa-star {% if review.rating > 3 %} checked {% endif %}" style="float: left;"></i>
-            <i class="fa fa-star {% if review.rating > 4 %} checked {% endif %}" style="float: left;"></i>
+          <i class="fa fa-star {% if review.rating > 0 %} checked {% endif %}" style="float: left;"></i>
+          <i class="fa fa-star {% if review.rating > 1 %} checked {% endif %}" style="float: left;"></i>
+          <i class="fa fa-star {% if review.rating > 2 %} checked {% endif %}" style="float: left;"></i>
+          <i class="fa fa-star {% if review.rating > 3 %} checked {% endif %}" style="float: left;"></i>
+          <i class="fa fa-star {% if review.rating > 4 %} checked {% endif %}" style="float: left;"></i>
         </div>
         <br>
         <div>
-         {{review.review}}
-      </div>
-      
+          {{review.review}}
+        </div>
+
       </div>
       {% endfor %}
+    </div>
+  </div>
 </div>
-</div>
-<hr>
+
+{% else %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+
+      <h4>write your review:</h4>
+      <form action="{% url 'submit_review' startup.id %}" class="review-form" method="POST">
+        {% csrf_token %}
+
+        <input type="hidden" name="review" id="review" value="" />
+
+        <div class="form-group">
+          <textarea class="form-control" name="review" id="exampleFormControlTextarea3" placeholder="Your Review"
+            rows="6"></textarea>
+        </div>
+        <br>
+        <div class="form-group">
+          <div class="input rating">
+            <div>Your Rating</div><br>
+            <div class="rating">
+              <input id="star-1" name="rating" type="radio" value="5" class="radio-btn hide" /><label for="star-1"><i
+                  class="fas fa-star"></i></label>
+              <input id="star-2" name="rating" type="radio" value="4" class="radio-btn hide" /><label for="star-2"><i
+                  class="fas fa-star"></i></label>
+              <input id="star-3" name="rating" type="radio" value="3" class="radio-btn hide" /><label for="star-3"><i
+                  class="fas fa-star"></i></label>
+              <input id="star-4" name="rating" type="radio" value="2" class="radio-btn hide" /><label for="star-4"><i
+                  class="fas fa-star"></i></label>
+              <input id="star-5" name="rating" type="radio" value="1" class="radio-btn hide" /><label for="star-5"><i
+                  class="fas fa-star"></i></label>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <style>
+          #btn:hover {
+            border: #FF4D3B solid 1px;
+
+          }
+
+          #btn {
+            background-color: #FF4D3B;
+            color: white;
+          }
+        </style>
+        {% if user.is_authenticated %}
+        <button class="btn" type="submit" id="btn">Submit Review</button>
+        {% else %}
+        <p>You must be login for review. <span><a style="text-decoration: none;"
+              href="{% url 'login' %}">login now</a></span></p>
+        {% endif %}
+      </form>
+    </div>
+
+    <div class="col-md-6">
+      <h4>Total Reviews({{count}})</h4>
+      <hr>
+      {% for review in reviews %}
+      <div class="row">
+        <div class="col-md-6">
+
+          <div>
+            <i class="fas fa-user-alt me-1"></i>
+            {{review.user.username}}
+            <i class="far fa-clock me-1"></i>
+            {{review.created_at}}
+          </div>
+        </div>
+        <div class="col-md-6 text-end">
+          <i class="fa fa-star {% if review.rating > 0 %} checked {% endif %}" style="float: left;"></i>
+          <i class="fa fa-star {% if review.rating > 1 %} checked {% endif %}" style="float: left;"></i>
+          <i class="fa fa-star {% if review.rating > 2 %} checked {% endif %}" style="float: left;"></i>
+          <i class="fa fa-star {% if review.rating > 3 %} checked {% endif %}" style="float: left;"></i>
+          <i class="fa fa-star {% if review.rating > 4 %} checked {% endif %}" style="float: left;"></i>
+        </div>
+        <br>
+        <div>
+          {{review.review}}
+        </div>
+
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <hr>
 </div>
 {% endif %}
 
 
-  
+
 {% endblock main-content %}
