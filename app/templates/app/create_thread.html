@@ -32,7 +32,7 @@
         {% csrf_token %}
         <p>Enter the username for the person you would like to talk to.</p>
         {{ form | crispy }}
-        <div class="d-grid gap-2">
+        <div class="d-grid gap-2 btn-styled">
           <button class="btn mt-3" type="submit" style="background-color: #FF4D3B; color: white;">Continue</button>
         </div>
       </form>

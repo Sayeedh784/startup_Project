@@ -9,65 +9,73 @@
     width: 100%;
     height: 22vw;
     object-fit: cover;
-}
+  }
 </style>
-<div class="container my-5 mt-5"></div>
-<img class="my-2" src="{% static 'app/images/banner1/about.png' %}" style="width: 100%; height: 400px;" alt="image">
+<div id="div1">
+  <img class="my-2" src="{% static 'app/images/banner1/2a.jpg' %}"
+    style="width: 100%; height: 500px; padding-top: 40px;" alt="image">
+</div>
 
 <div class="container my-4">
-  <div class="row">
+  <div id="div2" class="row">
     <div class="col-md-1"></div>
-      <div class="card col-md-10 shadow" style="border: none;">
-        <div class="card-header" style="background-color: #2F3D50; color: white;">
-          <h3 >About StartupBD</h3>
-        </div>
-        <div class="card-body">
-          <p>Established in 2022, StartupBD was created to showcase Bangladesh's vibrant startup ecosystem both locally and overseas.
-          It represents the shared interests of the startup community and unifies efforts to support the ecosystem under its
-          various initiatives and programmes. With StartupBD, startups and ecosystem partners can more easily discover and access
+    <div class="card col-md-10 shadow" style="border: none;">
+      <div class="card-header" style="background-color: #2F3D50; color: white;">
+        <h3>About StartupBD</h3>
+      </div>
+      <div class="card-body">
+        <p>Established in 2022, StartupBD was created to showcase Bangladesh's vibrant startup ecosystem both locally
+          and overseas.
+          It represents the shared interests of the startup community and unifies efforts to support the ecosystem under
+          its
+          various initiatives and programmes. With StartupBD, startups and ecosystem partners can more easily discover
+          and access
           available avenues of support.</p>
-          <p>Find out our startups <a href="{% url 'startup_home' %}" style="color: #FF4D3B;cursor: pointer;">here.</a></p>
-          <br><br>
-          <div class="row ">
-            <div class="col-md-12">
-              <h4><center>Behind The StartupBD</center></h4>
-              <br>
+        <p>Find out our startups <a href="{% url 'startup_home' %}" style="color: #FF4D3B;cursor: pointer;">here.</a>
+        </p>
+        <br><br>
+        <div class="row ">
+          <div class="col-md-12">
+            <h4>
+              <center>Behind The StartupBD</center>
+            </h4>
+            <br>
+          </div>
+          <div class="row">
+            <div class="col-md-4 col-sm-12">
+              <div class="card h-100">
+                <img src="{% static 'app/images/banner/pic.jpg' %}" width="100%" height="280px" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Md. Sayeed Hasan</h5>
+                  <p class="card-text">Student of Daffodil International University</p>
+
+                </div>
+              </div>
             </div>
-            <div class="row">
-              <div class="col-md-4 col-sm-12">
-                <div class="card h-100">
-                  <img src="{% static 'app/images/banner/pic.jpg' %}" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Md. Sayeed Hasan</h5>
-                    <p class="card-text">Student at Daffodil International University</p>
-                    
-                  </div>
+            <div class="col-md-4 col-sm-12">
+              <div class="card h-100">
+                <img src="{% static 'app/images/banner/pic2.jpg' %}" width="100%" height="280px" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Md. Musfiqur Rahman</h5>
+                  <p class="card-text">Student of Daffodil International University</p>
+
                 </div>
               </div>
-              <div class="col-md-4 col-sm-12">
-                <div class="card h-100">
-                  <img src="{% static 'app/images/banner/pic2.jpg' %}" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Md. Musfiqur Rahman</h5>
-                    <p class="card-text">Student at Daffodil International University</p>
-                    
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 col-sm-12">
-                <div class="card h-100">
-                  <img src="{% static 'app/images/banner/pic4.jpg' %}" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Md. Siam Uddin Sifat</h5>
-                    <p class="card-text">Student at Daffodil International University</p>
-                    
-                  </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+              <div class="card h-100">
+                <img src="{% static 'app/images/banner/pic4.jpg' %}" width="100%" height="300px" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Md. Siam Uddin Sifat</h5>
+                  <p class="card-text">Student of Daffodil International University</p>
+
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </div>
 </div>
 
