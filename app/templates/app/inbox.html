@@ -5,17 +5,17 @@
 
 {% block main-content %}
 
-<div class="container my-5" style="padding: 60px;">
+<div class="container my-5" style="padding-top: 80px;">
   <div class="row">
-    <div class="col-md-6 p-5">
-      <h3>Your Conversations</h3>
-      <form method="GET" action="{% url 'create-thread' %}">
+    <div class="col-md-5 p-5 text-center">
+      <h3 class="text-center">Your Conversations</h3>
+      <form class="btn-styled" method="GET" action="{% url 'create-thread' %}">
         <button class="btn p-3 my-3" type="submit" style="background-color: #FF4D3B; color: white;">Start a Conversation</button>
       </form>
     </div>
 
 
-<div class="card shadow col-md-6" style="background-color:#2F3D50;">
+<div class="card shadow col-md-7 p-5" style="background-color:#2F3D50;">
   {% if threads %}
   <center><h3 style="color: white;">Previous Messages</h3></center>
   {% else %}
