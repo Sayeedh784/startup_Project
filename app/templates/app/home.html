@@ -63,7 +63,7 @@
               <img class="slide-bg-img s1 d-block w-100">
               <div class="carousel-caption d-none d-md-block btn-styled">
                 <h2 class="heading animated flipInX delay-1s">StartUps</h2>
-                <p class="sub-heading animated rollIn delay-2s text-center">Get opportunities for
+                <p class="sub-heading animated zoomInDown delay-2s text-center">Get opportunities for
                   mentorship,funding,talent and
                   infrastructure</p>
                 <a style="background-color: #FF4D3B;"
@@ -76,7 +76,7 @@
               <img class="slide-bg-img s2 d-block w-100">
               <div class="carousel-caption d-none d-md-block btn-styled">
                 <h2 class="heading animated flipInX delay-1s">Investors</h2>
-                <p class="sub-heading animated rollIn delay-2s text-center">Encouraging Strategic invesment into the
+                <p class="sub-heading animated zoomInUp delay-2s text-center">Encouraging Strategic invesment into the
                   startups
                   ecosystem.</p>
                 <a style="background-color: #FF4D3B;"
@@ -88,7 +88,7 @@
               <img class="slide-bg-img s3 d-block w-100">
               <div class="carousel-caption d-none d-md-block btn-styled">
                 <h2 class="heading animated flipInX delay-1s ">Take Services</h2>
-                <p class="sub-heading animated rollIn delay-2s text-center">Make a deal with startups and get services
+                <p class="sub-heading animated bounceInLeft delay-2s text-center">Make a deal with startups and get services
                   well</p>
                 <a style="background-color: #FF4D3B;"
                   class="btn btn-lg btn-danger mt-5 animated infinite bounce delay-2s"
@@ -244,6 +244,7 @@
         <p class="text-muted">Make approach for the investment to your business.</p>
         <div style="border: #2F3D50 1px solid; padding: 20px;" class="owl-carousel text-center" id="slider1">
           {% for investor in investors %}
+          
           <a href="{% url 'investor-profile' investor.id %}" class="btn">
             <div class="item">
               {% if investor.logo %}
@@ -272,15 +273,15 @@
           <div class="row">
             <div class="col-md-4 text-center">
               <h2>{{total_startup}}+</h2>
-              <h3>Startups</h3>
+              <h3 class="text-center">Startups</h3>
             </div>
             <div class="col-md-4 text-center">
               <h2>{{total_investor}}+</h2>
-              <h3>Investors</h3>
+              <h3 class="text-center">Investors</h3>
             </div>
             <div class="col-md-4 text-center">
               <h2>{{total_customer}}+</h2>
-              <h3>Customers</h3>
+              <h3 class="text-center">Customers</h3>
             </div>
           </div>
         </div>
@@ -311,74 +312,55 @@
   </center>
   <br><br>
   <div class="row">
-    <div class="col-md-3">
-      <div id="zoom" class="card">
-        <img src="{% static 'app/images/article/elonmusk.png' %}" class="card-img-top" alt="...">
+    <div class="col-md-4">
+      <div id="zoom" class="card h-100">
+        <img src="{% static 'app/images/article/article1.jpg' %}" width="100%" height="70%" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">Elon Musk</h5>
-          <p class="card-text">Forbes listed Elon Musk as 2019’s Most Innovative Leader, TIME named him one of the 100
-            most influential people in the
-            world and Fortune named him the top business person of 2013.
-            Musk has made major contributions in the fields of information technology, space exploration, green
-            technologies and
-            artificial intelligence.
+          <h5 class="card-title" style="color:#53598f">The Four Cringe-Worthy Mistakes Too Many Startups Make with Data</h5>
+          <h6 style="color: blue;">By Amanda Richardson</h6>
+          <p class="card-text">Everyone wants to succeed at content marketing, but where do you start? John Jantsch answers this question perfectly:
+          with understanding your customer’s journey, and mapping your content plan to it. The article is a quick read, but is
+          hyper-actionable if you’re thinking about how to approach content development, or even if you’d like to repurpose old
+          content with more effective delivery...
           </p>
-          <a href="https://www.ilctr.org/entrepreneur-hof/elon-musk/?gclid=Cj0KCQiA6NOPBhCPARIsAHAy2zDAxMrofg4EpMMurBw0Pm12B9unqo7IZuEU9OgN35fY6Wa8sVQfeBQaAr4VEALw_wcB"
+          <a href="https://review.firstround.com/the-four-cringe-worthy-mistakes-too-many-startups-make-with-data"
             id="btn" class="btn">Read more</a>
         </div>
       </div>
     </div>
-    <div class="col-md-3">
-      <div id="zoom" class="card">
-        <img src="{% static 'app/images/article/elonmusk.png' %}" class="card-img-top" alt="...">
+    <div class="col-md-4">
+      <div id="zoom" class="card h-100">
+        <img src="{% static 'app/images/article/article2.jpg' %}" width="100%" height="70%" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">Elon Musk</h5>
-          <p class="card-text">Forbes listed Elon Musk as 2019’s Most Innovative Leader, TIME named him one of the 100
-            most influential people in the
-            world and Fortune named him the top business person of 2013.
-            Musk has made major contributions in the fields of information technology, space exploration, green
-            technologies and
-            artificial intelligence.
+          <h5 class="card-title" style="color:#53598f">These 13 Exercises Will Prepare You for Work's Toughest Situations</h5>
+          <h6 style="color: blue;">By Maggie Leung</h6>
+          <p class="card-text">There are so many people out there that parrot some form of this cliched management advice: “Have empathy.” “Understand
+          others.” “Be human.” That’s great and all, but without actionable advice on how to do that, it’s not much good. It
+          doesn’t get any more actionable than this. In this interview, Maggie Leung, VP of Content at Nerdwallet, shares 13 sets
+          of questions you can ask yourself...
           </p>
-          <a href="https://www.ilctr.org/entrepreneur-hof/elon-musk/?gclid=Cj0KCQiA6NOPBhCPARIsAHAy2zDAxMrofg4EpMMurBw0Pm12B9unqo7IZuEU9OgN35fY6Wa8sVQfeBQaAr4VEALw_wcB"
+          <a href="https://review.firstround.com/these-13-exercises-will-prepare-you-for-works-toughest-situations"
             id="btn" class="btn">Read more</a>
         </div>
       </div>
     </div>
-    <div class="col-md-3">
-      <div id="zoom" class="card">
-        <img src="{% static 'app/images/article/elonmusk.png' %}" class="card-img-top" alt="...">
+    <div class="col-md-4">
+      <div id="zoom" class="card h-100">
+        <img src="{% static 'app/images/article/article3.jpg' %}" width="100%" height="70%" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">Elon Musk</h5>
-          <p class="card-text">Forbes listed Elon Musk as 2019’s Most Innovative Leader, TIME named him one of the 100
-            most influential people in the
-            world and Fortune named him the top business person of 2013.
-            Musk has made major contributions in the fields of information technology, space exploration, green
-            technologies and
-            artificial intelligence.
+          <h5 class="card-title" style="color:#53598f">The Top 5 Leadership Qualities a First-Time Founder Should Practice</h5>
+          <h6 style="color: blue;">By Elen Venpeer</h6>
+          <p class="card-text">Starting a business is hard. But developing these leadership qualities will give you a chance of survival
+          In addition to dealing with a million things on their plate at any given time, first-time business owners also need to
+          learn to be managers for when their company starts growing—including all the leadership qualities that come with it.
+          Some people are born leaders. Guiding, inspiring and helping other people succeed is their forte without...
           </p>
-          <a href="https://www.ilctr.org/entrepreneur-hof/elon-musk/?gclid=Cj0KCQiA6NOPBhCPARIsAHAy2zDAxMrofg4EpMMurBw0Pm12B9unqo7IZuEU9OgN35fY6Wa8sVQfeBQaAr4VEALw_wcB"
+          <a href="https://www.groovehq.com/blog/leadership-qualities"
             id="btn" class="btn">Read more</a>
         </div>
       </div>
     </div>
-    <div class="col-md-3">
-      <div id="zoom" class="card">
-        <img src="{% static 'app/images/article/elonmusk.png' %}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Elon Musk</h5>
-          <p class="card-text">Forbes listed Elon Musk as 2019’s Most Innovative Leader, TIME named him one of the 100
-            most influential people in the
-            world and Fortune named him the top business person of 2013.
-            Musk has made major contributions in the fields of information technology, space exploration, green
-            technologies and
-            artificial intelligence.
-          </p>
-          <a href="https://www.ilctr.org/entrepreneur-hof/elon-musk/?gclid=Cj0KCQiA6NOPBhCPARIsAHAy2zDAxMrofg4EpMMurBw0Pm12B9unqo7IZuEU9OgN35fY6Wa8sVQfeBQaAr4VEALw_wcB"
-            id="btn" class="btn">Read more</a>
-        </div>
-      </div>
-    </div>
+
   </div>
   <br><br>
   <center><a href="{% url 'article' %}" role="button" id="btn" class="btn btn-outline">See All Articles</a></center>
@@ -414,7 +396,7 @@
 <div id="container">
   <div class="connect text-center btn-styled">
     <h1 class="text text-center text-white">Connect to Opportunities</h1> <br>
-    <a href="{% url 'register' %}" role="button" class="btn">Join Our Network</a>
+    <a href="{% url 'register' %}" role="button" class="btn ">Join Our Network</a>
   </div>
 </div>
 {% endblock main-content %}

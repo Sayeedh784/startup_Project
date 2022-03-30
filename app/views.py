@@ -54,41 +54,53 @@ def pricing(request):
 def register(request):
   return render(request, 'app/register.html')
 
-
-class customer_register(View):
-  def get(self, request):
-    form = CustomersignUpForm()
-    return render(request, 'app/customer_register.html', {'form': form})
-
-  def post(self, request):
+def customer_register(request):
+  if request.method == "POST":
     form = CustomersignUpForm(request.POST)
     if form.is_valid():
-      messages.success(request, "Congratulations!!! Registered successfully")
       form.save()
-    return redirect('/login')
-class startup_register(View):
-  def get(self, request):
-    form = StartupsignUpForm()
-    return render(request, 'app/startup_register.html', {'form': form})
+      username = form.cleaned_data.get('username')
+      messages.success(request, "Congratulations!!! Registered successfully")
+      form = CustomersignUpForm()
+      return redirect('login')
+  else:
+    form = CustomersignUpForm()
+  context = {
+      'form': form
+  }
+  return render(request, 'app/customer_register.html', context)
 
-  def post(self, request):
+def investor_register(request):
+  if request.method == "POST":
+    form =InvestorsignUpForm (request.POST)
+    if form.is_valid():
+      form.save()
+      username = form.cleaned_data.get('username')
+      messages.success(request, "Congratulations!!! Registered successfully")
+      form = InvestorsignUpForm()
+      return redirect('login')
+  else:
+    form = InvestorsignUpForm()
+  context = {
+      'form': form
+  }
+  return render(request, 'app/investor_register.html', context)
+
+def startup_register(request):
+  if request.method == "POST":
     form = StartupsignUpForm(request.POST)
     if form.is_valid():
-      messages.success(request, "Congratulations!!! Registered successfully")
       form.save()
-    return redirect('/login')
-class investor_register(View):
-  def get(self, request):
-    form = InvestorsignUpForm()
-    return render(request, 'app/investor_register.html', {'form': form})
-
-  def post(self, request):
-    form = InvestorsignUpForm(request.POST)
-    if form.is_valid():
+      username = form.cleaned_data.get('username')
       messages.success(request, "Congratulations!!! Registered successfully")
-      form.save()
-    # return render(request, 'app/investor_register.html', {'form': form})
-    return redirect('/login')
+      form = StartupsignUpForm()
+      return redirect('login')
+  else:
+    form = StartupsignUpForm()
+  context = {
+      'form': form
+  }
+  return render(request, 'app/startup_register.html', context)
 
 
 def login_request(request):
