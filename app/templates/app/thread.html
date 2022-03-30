@@ -29,6 +29,24 @@
     width: 25%;
     float: right;
   }
+  div.scrollmenu {
+  background-color: #333;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+div.scrollmenu a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+
+div.scrollmenu a:hover {
+  background-color: #777;
+}
+  
 </style>
 
 <div class="container my-5" style="padding: 40px;">
@@ -36,7 +54,7 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
       <div class="row">
-        <div class="card col-md-12 mt-5 p-3 shadow-sm">
+        <div class="card col-md-12 mt-5 p-3 shadow-sm ">
           {% if thread.receiver == request.user %}
           <h5>@{{ thread.user }}</h5>
           {% else %}
@@ -55,7 +73,7 @@
 
       {% for message in message_list %}
       <div class="row">
-        <div class="col-md-12 my-1">
+        <div class="col-md-12 my-1" >
 
           {% if message.sender_user == request.user %}
           <div class="sent-message my-3">
@@ -79,7 +97,7 @@
                 {{ form | crispy }}
               </div>
               <div class="col-md-3 btn-styled">
-                <button class="btn me-2" type="submit">Send message</button>
+                <button class="btn me-2 " type="submit">Send message</button>
               </div>
             </div>
           </form>
