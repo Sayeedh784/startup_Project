@@ -3,6 +3,8 @@ from .import views
 from .views import *
 from .form import *
 from django.contrib.auth import views as auth_views
+from django.conf.urls.static import static
+from django.conf import settings
 
 
 urlpatterns = [
@@ -67,4 +69,4 @@ urlpatterns = [
          as_view(template_name='app/password_reset_complete.html'),
          name='password_reset_complete'),
     
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
