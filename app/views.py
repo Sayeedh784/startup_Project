@@ -123,31 +123,6 @@ def logout_view(request):
     logout(request)
     return redirect('/login')
 
-# def userProfileForm(request,pk):
-#   if request.method == "POST":
-#     if request.user.is_startup:
-#       obj = get_object_or_404(StartupInfo, user_id=request.user.id)
-#       form = Startup_profileForm(request.POST, request.FILES, instance=obj)
-#     elif request.user.is_investor:
-#       obj = get_object_or_404(Investorinfo, user_id=request.user.id)
-#       form = Investor_profileForm(request.POST,request.FILES, instance=obj)
-#     elif request.user.is_customer:
-#       obj = get_object_or_404(CustomerInfo, user_id=request.user.id)
-#       form = Customer_profileForm(request.POST, request.FILES, instance=obj)
-#     if form.is_valid():
-#       messages.success(request, "Profile Updated successfully!!!")
-#       form.save()
-        
-#   else:
-#     if request.user.is_startup:
-#       form = Startup_profileForm()
-#     elif request.user.is_investor:
-#       form = Investor_profileForm()
-#     elif request.user.is_customer:
-#       form = Customer_profileForm()
-#   context={'form':form}
-  
-#   return render(request,'app/user_profileForm.html',context)
 
 
 class StartUpdateView(LoginRequiredMixin, UpdateView):
