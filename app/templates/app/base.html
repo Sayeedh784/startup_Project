@@ -1,4 +1,5 @@
 <!doctype html>
+{% load static %}
 {% load custom_tags %}
 <html lang="en">
 
@@ -6,7 +7,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  {% load static %}
+  
   <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -78,13 +79,19 @@
       background-color: #e0311e !important;
       color: white;
     }
+    #nav a{
+      color: white;
+    }
+    #nav a:hover{
+      color: #FF4D3B;
+    }
   </style>
   <section>
     <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-12">
-        <nav id="nav" class="navbar navbar-expand-lg fixed-top" style="background-color: #2F3D50;">
+        <nav id="nav" class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #2F3D50;">
           <div class="container">
-            <a href="/"><img src="{% static 'app/images/logo/Logo-final-2-01.png' %}" class="me-5" width="200px" height="auto" alt=""></a>
+            <a href="/"><img src="{% static 'app/images/logo1/Logo-final-2-01.png' %}" class="me-5" width="200px" height="auto" alt=""></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
               data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
               aria-label="Toggle navigation">
@@ -131,9 +138,9 @@
                       {{request.user.username|capfirst}}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                      <li><a class="dropdown-item" href="{% url 'profile' user.id %}"> Profile</a></li>
+                      <li><a class="dropdown-item" style="color: black;" href="{% url 'profile' user.id %}"> Profile</a></li>
 
-                      <li><a class="dropdown-item" href="{% url 'passwordchange' %}">Change Password</a></li>
+                      <li><a class="dropdown-item" style="color: black;" href="{% url 'passwordchange' %}">Change Password</a></li>
 
                     </ul>
                   </li>
